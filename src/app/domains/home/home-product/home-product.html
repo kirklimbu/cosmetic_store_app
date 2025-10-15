@@ -17,7 +17,7 @@
 
                 <!-- IMAGE -->
                 <div nz-col [nzXs]="10" [nzSm]="8" class="product-image">
-                    <img nz-image [nzSrc]="product.path" [alt]="product.name" [nzFallback]="fallback" />
+                    <img nz-image [appLazyImg]="product.path" [alt]="product.name" [nzFallback]="fallback" />
                 </div>
 
                 <!-- DETAILS -->
@@ -57,7 +57,7 @@
                         </span>
                     </p>
 
-                    
+
 
                     <!-- Quantity Selector -->
                     @if(authenticated()){

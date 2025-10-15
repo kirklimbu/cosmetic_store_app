@@ -23,12 +23,13 @@ import { AuthState } from 'src/app/domains/auth/login/state/login.state';
 import { CartCount } from 'src/app/domains/shared/ui-common/cart-count/cart-count';
 import { SearchPage } from '../search-page/search-page';
 import { CartService } from './../../../cart/data/services/cart.services';
+import { NzImageModule } from 'ng-zorro-antd/image';
 // import { MessageService } from 'src/app/shared/util-logger/message.service';
 
 @Component({
   selector: 'lib-header',
   templateUrl: './header.component.html',
-  styleUrl: './header.scss',
+  styleUrl: './header.component.scss',
   // providers: [MessageService],
 
   imports: [
@@ -48,6 +49,7 @@ import { CartService } from './../../../cart/data/services/cart.services';
     NzGridModule,
     SearchPage,
     CartCount,
+    NzImageModule,
   ],
 })
 export class HeaderComponent implements OnInit {

@@ -4,18 +4,25 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Meta, Title } from '@angular/platform-browser';
 import { ICompany } from '../company/data/model/company.model';
 import { CategoryCard } from './category-card/category-card';
-import { ICategory, IProduct } from './data/model/home.model';
+import { IBannerDto, ICategory, IProduct } from './data/model/home.model';
 import { HomeBrandComponent } from './home-brand/home-brand.component';
 import { Homeproduct } from './home-product/home-product';
 import { HomeService } from './home.service';
 import { deviceIdSignal } from '../shared/util-common/generateDeviceId';
+import { SliderComponent } from './slider/slider.component';
 
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   standalone: true,
-  imports: [CommonModule, HomeBrandComponent, CategoryCard, Homeproduct],
+  imports: [
+    CommonModule,
+    HomeBrandComponent,
+    CategoryCard,
+    Homeproduct,
+    SliderComponent,
+  ],
   providers: [],
 })
 export class HomeComponent implements OnInit {
@@ -25,6 +32,7 @@ export class HomeComponent implements OnInit {
   companyList = signal<ICompany[]>([]);
   categoryList = signal<ICategory[]>([]);
   productList = signal<IProduct[]>([]);
+  bannerList = signal<IBannerDto[]>([]);
   isLoading = signal<boolean>(false);
 
   private readonly unsubscribe$ = inject(DestroyRef);
@@ -48,12 +56,12 @@ export class HomeComponent implements OnInit {
       .subscribe((res: any) => {
         // this.onTrackView();
 
-        // this.bannerList = res.bannerList;
         // this.ceoMessage = res.organization.ceoMsg;
         // this.ceoPhoto = res.organization.ceoFile;
         // this.ceoName = res.organization.ceoName;
         // this.companyList = res.companyList;
         // this.categoryList = res.categoryList;
+        this.bannerList.set(res.bannerList);
         this.companyList.set(res.companyList);
         this.categoryList.set(res.categoryList);
         this.productList.set(res.stockList);

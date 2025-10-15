@@ -98,7 +98,7 @@
     }
 
     @media (min-width: 1024px) {
-        grid-template-columns: repeat(5, 1fr);
+        grid-template-columns: repeat(8, 1fr);
     }
 
     @media (min-width: 1440px) {
@@ -196,7 +196,7 @@
     transition: all 0.2s ease-in-out;
 
     &:hover {
-        background: #f0f5ff;
+        background: lighten($color: pink, $amount: 10%);
         border-color: #91d5ff;
         transform: translateY(-2px);
         box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);

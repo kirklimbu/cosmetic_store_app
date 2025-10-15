@@ -15,6 +15,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { FooterComponent } from '../components/footer/footer.component';
 import { HeaderComponent } from '../components/header/header.component';
+import { HeaderTopComponent } from '../components/header-top/header-top.component';
 
 @Component({
   selector: 'app-common-layout',
@@ -31,6 +32,7 @@ import { HeaderComponent } from '../components/header/header.component';
     NzGridModule,
     FooterComponent,
     HeaderComponent,
+    HeaderTopComponent,
   ],
   //   providers: [ThemeConstantService],
 })

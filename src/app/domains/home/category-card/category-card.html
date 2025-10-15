@@ -40,12 +40,12 @@
         <!-- Categories grid -->
         <div class="categories-grid">
             @for (category of data(); track category.categoryId) {
-            <nz-card class="category-card" nzHoverable [class.inactive]="!category.hasActive"
+            <nz-card [title]="category.name" class="category-card" nzHoverable [class.inactive]="!category.hasActive"
                 (click)="onCategorySelect(category.categoryId)">
                 <div class="card-content">
                     <div class="image-container">
-                        <img [nzDisablePreview]="true" nz-image [nzSrc]="category.path" [alt]="category.name"
-                            class="category-image" (error)="onImageError($event)" [nzFallback]="fallback" />
+                        <img [nzDisablePreview]="true" nz-image [appLazyImg]="category.path" [alt]="category.name"
+                            class="category-image" [nzFallback]="fallback" />
                         @if (!category.hasActive) {
                         <div class="inactive-overlay">
                             <nz-icon nzType="pause-circle" class="inactive-icon"></nz-icon>
@@ -54,9 +54,9 @@
                     </div>
 
                     <div class="text-content">
-                        <h3 class="category-name" [title]="category.name">
+                        <!-- <h3 class="category-name" [title]="category.name">
                             {{ category.name }}
-                        </h3>
+                        </h3> -->
 
                         <!-- @if (showCount() && category.productCount !== undefined) {
                         <p class="product-count">

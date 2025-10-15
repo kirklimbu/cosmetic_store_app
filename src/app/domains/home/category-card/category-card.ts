@@ -1,12 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject, Input, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
+import { Router } from '@angular/router';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzImageModule } from 'ng-zorro-antd/image';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
-import { ICategory } from '../data/model/home.model';
-import { Router } from '@angular/router';
 import { SearchService } from '../../search-result-page/data/service/search.service';
+import { ICategory } from '../data/model/home.model';
+import { LazyImgDirective } from '../../shared/directives/lazyImage/lazyImage.directive';
 @Component({
   selector: 'app-category-card',
   imports: [
@@ -15,6 +16,8 @@ import { SearchService } from '../../search-result-page/data/service/search.serv
     NzImageModule,
     NzSkeletonModule,
     NzIconModule,
+    // project
+    LazyImgDirective
   ],
   templateUrl: './category-card.html',
   styleUrl: './category-card.scss',
@@ -35,7 +38,7 @@ export class CategoryCard {
 
   onImageError(event: Event): void {
     const imgElement = event.target as HTMLImageElement;
-    imgElement.src = '/assets/images/category-placeholder.svg';
+    imgElement.src = this.fallback;
   }
 
   onCategorySelect(id: number) {

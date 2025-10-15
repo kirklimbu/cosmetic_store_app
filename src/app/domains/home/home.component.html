@@ -1,3 +1,9 @@
-<app-home-brand [data]="companyList()" />
-<app-category-card [data]="categoryList()" [showCount]="true" />
-<app-home-product [data]="productList()" />
+<section #trigger>
+
+    @defer (on viewport(trigger)) {
+    <app-slider [data]="bannerList()" />
+    }
+    <app-home-brand [data]="companyList()" />
+    <app-category-card [data]="categoryList()" [showCount]="true" />
+    <app-home-product [data]="productList()" />
+</section>

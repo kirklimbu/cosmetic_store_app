@@ -2,7 +2,7 @@ import { CommonModule, DatePipe, NgOptimizedImage } from '@angular/common';
 import { Component, signal } from '@angular/core';
 
 @Component({
-  selector: 'lib-footer',
+  selector: 'app-footer',
   imports: [CommonModule, NgOptimizedImage],
   templateUrl: './footer.component.html',
   styleUrls: ['./footer.component.scss'],

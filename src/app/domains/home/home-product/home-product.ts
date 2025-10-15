@@ -26,6 +26,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { debounceTime, Subject } from 'rxjs';
 import { SearchService } from '../../search-result-page/data/service/search.service';
+import { LazyImgDirective } from '../../shared/directives/lazyImage/lazyImage.directive';
 @Component({
   selector: 'app-home-product',
   imports: [
@@ -40,6 +41,8 @@ import { SearchService } from '../../search-result-page/data/service/search.serv
     NzIconModule,
     NzButtonModule,
     NzDividerModule,
+    // project
+    LazyImgDirective,
   ],
   templateUrl: './home-product.html',
   styleUrl: './home-product.scss',

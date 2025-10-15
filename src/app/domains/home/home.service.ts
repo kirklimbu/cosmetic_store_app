@@ -25,7 +25,7 @@ export class HomeService {
 
   getHomeContents(id: string): Observable<IHome1DtoWrapper> {
     // console.log('cuurent page', page);
-    return this.http.get<IHome1DtoWrapper>(`${this.api_url}home`, {
+    return this.http.get<IHome1DtoWrapper>(`${this.api_url}home/shreeshyam`, {
       params: { deviceId: id },
     });
   }

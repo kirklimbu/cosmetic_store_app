@@ -6,7 +6,7 @@ import { HeaderComponent } from '../header/header.component';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 
 @Component({
-  selector: 'lib-layout',
+  selector: 'app-layout',
   imports: [
     CommonModule,
     RouterOutlet,

@@ -1,0 +1,100 @@
+<!-- PAGE HEADER: Welcoming and Informative -->
+<div class="page-header-container">
+
+
+
+    <app-page-header-section [subtitle]="'Events'" [title]="''" [description]="'Join us in making a difference.'" />
+    <!-- MAIN CONTENT: The Event Grid -->
+    <!-- <div class="events-grid-container">
+        <div nz-row [nzGutter]="[16]">
+            @for (item of data(); track item.categoryId) {
+            <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="6">
+
+                <nz-card class="event-card" nzHoverable [nzCover]="coverTemplate">
+                    <div class="event-card-body">
+                        <nz-tag [nzColor]="'#ff9f38'" class="event-category-tag">{{ item.category|titlecase }}</nz-tag>
+
+
+                        <h2 class="event-title">{{ item.category| titlecase }}</h2>
+
+                        <p class="event-description">
+                            A brief, engaging description of what this event category entails.
+                        </p>
+                    </div>
+
+
+                    <div class="event-card-footer">
+                        <a class="view-more-link" (click)="onViewMore(item.categoryId)                ">
+                            View More
+                            <i nz-icon nzType="arrow-right" nzTheme="outline"></i>
+                        </a>
+                    </div>
+                </nz-card>
+
+                <ng-template #coverTemplate>
+                    <div class="event-image-wrapper">
+                        <img class="event-image" alt="{{ item.category }} category image" [src]="item.path" />
+                    </div>
+                </ng-template>
+            </div>
+            }
+        </div>
+    </div> -->
+
+
+
+    @if (!data().length) {
+    <div class="skeleton-grid">
+        <div nz-row [nzGutter]="16" style="height: 100%">
+            <div nz-col [nzXs]="24" [nzSm]="12" [nzMd]="12" [nzLg]="8" [nzXl]="8" *ngFor="let item of [1, 2, 3]">
+                <div class="square-rectangle-card">
+                    <div class="square-image">
+                        <nz-card [nzHoverable]="false">
+                            <nz-skeleton [nzActive]="true">
+                                <nz-skeleton-element nzType="image"></nz-skeleton-element>
+                            </nz-skeleton>
+                        </nz-card>
+                    </div>
+                    <div class="square-text"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    } @else {
+    <div class="slider-container">
+        <button class="arrow left" (click)="scrollLeft()">
+            <span nz-icon nzType="left" nzTheme="outline"></span>
+        </button>
+
+        <div #productSlider class="product-slider">
+            @for (product of data(); track product.categoryId) {
+            <div class="product-card" (click)="onViewMore(product.categoryId)">
+
+                <img class="product-image" height="150" width="150" [ngSrc]="product.path" alt="Product" height="200"
+                    width="200" loading="lazy" />
+
+                <div class="product-content">
+
+
+                    <div [title]="product.category" class="product-title">
+                        {{ product.category |titlecase| truncate: 24 }}
+                    </div>
+                    <!-- <p [innerHTML]="product. | truncate: 45" [title]="product.description">{{
+                        product.description | truncate: 100 }}</p> -->
+
+                    <div class="event-card-footer">
+                        <a class="view-more-link" (click)="onViewMore(product.categoryId)                ">
+                            View More
+                            <i nz-icon nzType="arrow-right" nzTheme="outline"></i>
+                        </a>
+                    </div>
+                </div>
+                <!-- NEW: Overlay content -->
+            </div>
+            }
+        </div>
+        <button class=" arrow right" (click)="scrollRight()">
+            <span nz-icon nzType="right" nzTheme="outline"></span>
+        </button>
+    </div>
+    }

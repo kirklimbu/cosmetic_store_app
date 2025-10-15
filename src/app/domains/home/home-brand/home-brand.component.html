@@ -1,20 +1,25 @@
-<section class="brand-section">
+<section class="brand-section" aria-labelledby="brands-heading">
   <nz-page-header [nzTitle]="title" nzSubtitle="">
     <nz-page-header-extra>
-      <a nz-button nzType="link" [routerLink]="['/all-cdategories']">View all</a>
+      <a nz-button nzType="link" [routerLink]="['/all-categories']" aria-label="View all brands">
+        View all
+      </a>
     </nz-page-header-extra>
   </nz-page-header>
+
   <div class="category-container">
-    <nz-carousel #carousel [nzEffect]="'scrollx'" [nzDots]="true">
-      @for (chunk of chunkedCategories; track chunk) {
+    <nz-carousel #carousel [nzEffect]="'scrollx'" [nzDots]="true" [nzAutoPlay]="false" nzCarouselClass="brands-carousel"
+      aria-label="Brand categories">
+      @for (chunk of chunkedCategories; track $index; let i = $index) {
       <div nz-carousel-content>
         <div class="category-slide">
-          <div class="category-grid">
+          <div class="category-grid" role="list" [attr.aria-label]="'Brands group ' + (i + 1)">
             @for (category of chunk; track category.companyId) {
-            <div class="category-item">
+            <div class="category-item" role="listitem" (click)="navigateToCategory(category)"
+              (keydown.enter)="navigateToCategory(category)" tabindex="0">
               <div class="circle">
                 <img nz-image width="52" height="52" [nzSrc]="category.logo" [nzFallback]="fallback"
-                  [alt]="category.name" alt="ehatiya categories" />
+                  [alt]="category.name + ' logo'" loading="lazy" />
               </div>
               <p>{{ category.name | titlecase }}</p>
             </div>
@@ -25,5 +30,14 @@
       }
     </nz-carousel>
 
+    <!-- Desktop arrows -->
+    <div class="carousel-arrows">
+      <button class="left" (click)="prev()" aria-label="Previous brands">
+        <i nz-icon nzType="left"></i>
+      </button>
+      <button class="right" (click)="next()" aria-label="Next brands">
+        <i nz-icon nzType="right"></i>
+      </button>
+    </div>
   </div>
 </section>

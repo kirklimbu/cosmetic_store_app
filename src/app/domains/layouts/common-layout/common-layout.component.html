@@ -1,7 +1,7 @@
 <nz-layout class="layout-container">
     <!-- Main layout -->
     <nz-layout>
-
+        <!-- <app-header-top /> -->
         <!-- Header -->
         <lib-header class="app-header" (search)="onSearch($event)" />
 
@@ -12,9 +12,8 @@
                 <router-outlet></router-outlet>
             </div>
         </nz-content>
-
         <!-- Footer -->
-        <lib-footer class="app-footer" />
+        <app-footer class="app-footer" />
 
     </nz-layout>
 </nz-layout>

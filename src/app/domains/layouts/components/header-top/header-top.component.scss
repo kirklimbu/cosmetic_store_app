@@ -1,0 +1,144 @@
+@import '../../../../../assets/scss/_variables.scss';
+
+.header-top {
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+  color: $tertiary-color;
+  border-bottom: 1px solid white;
+
+  .section {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px 12px;
+    border-top: 4px solid white;
+
+    .content {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+
+      nz-icon {
+        // margin-right: 6px;
+        font-size: 24px;
+      }
+
+      a {
+        color: $tertiary-color;
+        text-decoration: none;
+
+        &:hover {
+          color: darken($tertiary-color, 15%);
+        }
+      }
+    }
+  }
+
+  .section-left {
+    .content {
+      justify-content: flex-start;
+    }
+  }
+
+  .section-right {
+    .content {
+      justify-content: flex-start;
+    }
+  }
+
+
+
+  // Remove top border for the first section
+  .section:first-child {
+    border-top: none;
+  }
+
+  // Tablet & Desktop (≥768px)
+  @media (min-width: 768px) {
+    flex-direction: row;
+    height: 50px;
+
+    .section {
+      background-color: lighten($color: $tertiary-color, $amount: 35%);
+      border-top: none;
+      border-left: 1px solid white;
+      height: 100%;
+
+
+      &:first-child {
+        border-left: none;
+      }
+
+      &.section-left {
+        flex: 1;
+        justify-content: flex-end;
+
+        .content {
+          justify-content: flex-end;
+          gap: 10px;
+
+        }
+      }
+
+      &.section-center {
+        flex: 3;
+        justify-content: space-evenly;
+      }
+
+      &.section-right {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        /* Vertically centers the icons */
+        gap: 10px;
+
+        .content {
+          justify-content: flex-start;
+          gap: 10px; // Ensure consistent spacing between the links
+        }
+      }
+
+    }
+  }
+}
+
+.section-center {
+  display: flex;
+  flex: 3;
+  justify-content: center;
+  padding: 0.5rem 1rem;
+}
+
+.content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+}
+
+.left-content,
+.right-content {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+a {
+  text-decoration: none;
+  color: #4B2E1E;
+  font-weight: 500;
+
+  &:hover {
+    color: #0077cc;
+  }
+}
+
+.social-icon-size {
+  font-size: 164px !important; // Adjust this value
+  height: 64px !important; // Match the height to prevent layout shifts
+  line-height: 1 !important; // Ensure proper vertical alignment
+}
+
