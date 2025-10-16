@@ -1,0 +1,51 @@
+<div class="product-card">
+
+    <!-- Product Image -->
+    <div class="product-image">
+        <div class="product-badges">
+            <!-- Add badges when you have the data -->
+            <!-- <div class="badge new">New</div> -->
+            <!-- <div class="badge discount">15% OFF</div> -->
+        </div>
+
+        <img [src]="data().path" [alt]="data().name" loading="lazy"
+            onerror="this.src='/assets/images/placeholder-product.jpg'" />
+    </div>
+
+    <!-- Product Information - Clean Layout -->
+    <div class="product-info">
+        <!-- Brand -->
+        <div class="product-brand">{{ data().company || 'Brand' }}</div>
+
+        <!-- Product Name -->
+        <h3 class="product-name">{{ data().name }}</h3>
+
+        <!-- Price - Always Visible -->
+        <div class="price-section">
+            <span class="current-price">₹{{ data().mrp }}</span>
+            <!-- Uncomment when you have offer price -->
+            <!-- <span class="original-price">₹{{ data().originalPrice }}</span> -->
+            <!-- <span class="discount-percent">15% off</span> -->
+        </div>
+
+        <!-- Rating - Optional -->
+        <!-- <div class="rating-section">
+      <nz-rate [ngModel]="4.5" nzDisabled nzAllowHalf></nz-rate>
+      <span class="rating-value">4.5</span>
+      <span class="reviews">(128)</span>
+    </div> -->
+
+        <!-- Stock Status - Optional -->
+        <!-- <div class="stock-info">
+      <nz-tag nzColor="green">In Stock</nz-tag>
+    </div> -->
+
+        <!-- Add to Cart Button -->
+        <div class="action-buttons">
+            <button nz-button class="add-to-cart-btn" (click)="addToCart(data())">
+                <span nz-icon nzType="shopping-cart"></span>
+                Add to Cart
+            </button>
+        </div>
+    </div>
+</div>

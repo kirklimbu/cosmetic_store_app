@@ -10,6 +10,7 @@ import { Homeproduct } from './home-product/home-product';
 import { HomeService } from './home.service';
 import { deviceIdSignal } from '../shared/util-common/generateDeviceId';
 import { SliderComponent } from './slider/slider.component';
+import { ProductSlider } from '../shared/ui-common/product-slider/product-slider';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +23,7 @@ import { SliderComponent } from './slider/slider.component';
     CategoryCard,
     Homeproduct,
     SliderComponent,
+    ProductSlider,
   ],
   providers: [],
 })
@@ -65,6 +67,7 @@ export class HomeComponent implements OnInit {
         this.companyList.set(res.companyList);
         this.categoryList.set(res.categoryList);
         this.productList.set(res.stockList);
+        // this.productList = res.stockList;
         this.isLoading.set(false);
       });
   }

@@ -1,681 +1,116 @@
 @import "src/assets/scss/_variables.scss";
 
-// // ... (other styles remain the same)
-
-// //================================================
-// // VARIABLES
-// //================================================
-:root {
-    --primary-color: #005A9C; // Professional Blue
-    --secondary-color: #4A90E2; // Lighter, friendly blue
-    --accent-color: #2ECC71; // Positive green for CTAs
-    --dark-grey: #333333;
-    --medium-grey: #666666;
-    --light-grey: #f4f7f6;
-    --white-color: #ffffff;
-    // --font-family-headings: 'Work Sans', sans-serif;
-    --font-family-body: 'Roboto', sans-serif;
-}
-
-//================================================
-// GENERAL STYLES
-//================================================
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
-    font-family: var(--font-family-body);
-    color: var(--dark-grey);
-    line-height: 1.7;
-    background-color: var(--white-color);
-}
-
-.container {
-    max-width: var(--container-width);
+// Main container
+.page-container {
+    padding: 1rem;
+    max-width: 1400px;
     margin: 0 auto;
-    padding: 0 20px;
 }
 
-h1,
-h2,
-h3,
-h4 {
-    font-family: var(--font-family-headings);
-    font-weight: 700;
-    color: var(--primary-color);
-}
-
-h2 {
-    font-size: 2.5rem;
-    text-align: center;
-    margin-bottom: 1rem;
-}
-
-p {
-    margin-bottom: 1rem;
-    color: var(--medium-grey);
-}
-
-// Clean up some duplicate and unused styles
-.ant-page-header {
-    padding: 0;
-}
-
+// Skeleton loader
 .skeleton-grid {
-    padding: 16px 0; // Match the slider's padding
+    padding: 16px 0;
+
+    .square-image nz-card {
+        height: 250px;
+    }
 }
 
-.square-image nz-card {
-    height: 250px; // Use a fixed height for the skeleton card
-}
-
-// === Mobile-First: Slider for 1 item ===
+// Slider container - Mobile First
 .slider-container {
     position: relative;
     width: 100%;
     display: flex;
     align-items: center;
-    justify-content: center;
-    // padding: 0 40px; // Add padding to make space for arrows
+    padding: 1rem 0;
 }
 
+// Slider arrows
 .arrow {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
-    width: 30px;
-    height: 120px;
-    background-color: lighten($color: $tertiary-color, $amount: 35%);
-    border: 0;
-    border-radius: 0 4px 4px 0;
-    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    width: 40px;
+    height: 40px;
+    background-color: lighten($color: $primary-color, $amount: 35%);
+    border: none;
+    border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: $tertiary-color; // Assuming a primary color variable
+    color: $primary-color;
     cursor: pointer;
-    transition: 0.3s all ease;
-    z-index: 2;
+    transition: all 0.3s ease;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
 
     &:hover {
-        background-color: $tertiary-color;
+        background-color: $primary-color;
         color: #fff;
-        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+        transform: translateY(-50%) scale(1.1);
     }
 
     &.left {
-        left: 0;
-        border-radius: 0 6px 6px 0;
+        left: 0.5rem;
     }
 
     &.right {
-        right: 0;
-        border-radius: 6px 0 0 6px;
+        right: 0.5rem;
+    }
+
+    // Hide arrows on mobile by default
+    display: none;
+
+    @media (min-width: 768px) {
+        display: flex;
     }
 }
 
+// Product slider
 .product-slider {
     display: flex;
-    gap: 16px;
-    padding: 16px 0;
+    gap: 0.75rem; // Minimal gap between cards
+    padding: 0.5rem 0.25rem;
     overflow-x: auto;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
     scrollbar-width: none;
     -ms-overflow-style: none;
     scroll-snap-type: x mandatory;
-    scroll-padding: 16px;
-    width: 100%; // Ensures the slider takes full width
+    width: 100%;
 
     &::-webkit-scrollbar {
         display: none;
     }
-}
 
-.product-card {
-    scroll-snap-align: start;
-    width: calc(100% - 32px); // REVISED: 1 item per view on mobile, with padding
-    flex-shrink: 0;
-    background: #fff;
-    border-radius: 10px;
-    display: flex;
-    flex-direction: column;
-    padding-bottom: 12px;
-    position: relative;
-
-    &:hover {
-        cursor: pointer;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); // subtle hover effect
-    }
-
-    .product-image {
-        width: 100%; // Image takes up full card width
-        height: 320px;
-        object-fit: cover;
-        // margin: 26px auto 0;
-        border-radius: .5rem .5rem 0 0;
-    }
-
-    .event-card-footer {
-        padding: .25rem 0;
-
-    }
-
-    // Other product-card styles...
-}
-
-// === Tablet View: 2 items per view (min-width: 768px) ===
-@media screen and (min-width: 768px) {
-    .product-card {
-        width: calc((100% - 1 * 16px) / 2); // REVISED: 2 items per view
-        height: auto;
+    // Mobile: Show exactly 2 items
+    @media (max-width: 767px) {
+        gap: 0.5rem;
+        padding: 0.25rem;
     }
 }
 
-// === Desktop View: 3 items per view (min-width: 1200px) ===
-@media screen and (min-width: 1200px) {
-    .product-card {
-        width: calc((100% - 2 * 16px) / 3); // REVISED: 3 items per view
+// Tablet and above
+@media (min-width: 768px) {
+    .page-container {
+        padding: 1.5rem;
+    }
+
+    .slider-container {
+        padding: 1.5rem 0;
+    }
+
+    .product-slider {
+        gap: 0.875rem;
     }
 }
 
-/* In your component's .scss file */
-
-// ... (existing styles)
-
-.product-card {
-    // ... (existing styles)
-    padding-bottom: 0; // REVISED: Padding moved to the content wrapper
-
-    .product-image {
-        // ... (existing styles)
-        margin-bottom: 8px; // REVISED: Add a margin below the image
-    }
-}
-
-.product-content {
-    padding: 1rem; // REVISED: Consistent padding for all content inside the card
-    display: flex;
-    flex-direction: column;
-    gap: .75rem; // Use gap for consistent vertical spacing
-
-    
-.event-category-tag {
-    font-weight: 600;
-    border-radius: 4px;
-    margin-bottom: 12px;
-    color: #fff; // High contrast text color for the tag
-}
-}
-
-.product-rating {
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    font-size: 13px;
-    // REVISED: Margins are now handled by the parent `.product-content`
-}
-
-.product-title {
-    font-weight: 700;
-    font-size: 18px;
-    color: $black;
-    line-height: 1.2;
-    // REVISED: Margins are now handled by the parent `.product-content`
-}
-
-.shipping-info {
-    // ... (existing styles)
-    font-size: 10px;
-    // REVISED: Margins are now handled by the parent `.product-content`
-}
-
-.stock-info {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 12px;
-    color: #1aba1a;
-    // REVISED: Margins are now handled by the parent `.product-content`
-}
-
-
-
-section {
-    padding: 4rem 0;
-}
-
-.cta-button {
-    display: inline-block;
-    background-color: var(--accent-color);
-    color: var(--white-color);
-    padding: 12px 30px;
-    border-radius: 50px;
-    text-decoration: none;
-    font-weight: bold;
-    font-family: var(--font-family-headings);
-    transition: background-color 0.3s ease, transform 0.3s ease;
-
-    &:hover {
-        background-color: #27ae60; // Darker green
-        transform: translateY(-3px);
-    }
-}
-
-
-//================================================
-// HEADER & NAVIGATION
-//================================================
-.main-header {
-    background-color: var(--white-color);
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-
-    .navbar {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 1rem 2rem;
-        max-width: var(--container-width);
-        margin: 0 auto;
-    }
-
-    .logo {
-        font-size: 1.5rem;
-        font-weight: bold;
-        color: var(--primary-color);
-        font-family: var(--font-family-headings);
-    }
-
-    .nav-links {
-        list-style: none;
-        display: flex;
-        gap: 2rem;
-
-        a {
-            text-decoration: none;
-            color: var(--dark-grey);
-            font-weight: 600;
-            position: relative;
-            padding-bottom: 5px;
-
-            &::after {
-                content: '';
-                position: absolute;
-                bottom: 0;
-                left: 0;
-                width: 0;
-                height: 2px;
-                background-color: var(--primary-color);
-                transition: width 0.3s ease;
-            }
-
-            &:hover::after,
-            &.active::after {
-                width: 100%;
-            }
-        }
-    }
-}
-
-//================================================
-// HERO SECTION
-//================================================
-.hero {
-    background: lighten($color: $tertiary-color, $amount: 30%);
-    text-align: center;
-    padding: 8rem 2rem;
-
-    .hero-content {
-        max-width: 800px;
-        margin: 0 auto;
-    }
-
-    h1 {
-        font-size: 3.5rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-        color: var(--white-color);
-    }
-
-    .subtitle {
-        font-size: 1.2rem;
-        margin-bottom: 2rem;
-        font-weight: 300;
-        color: rgba(255, 255, 255, 0.9);
-    }
-}
-
-//================================================
-// PROBLEM SECTION
-//================================================
-.problem-section {
-    background-color: var(--light-grey);
-    text-align: center;
-
-    .section-intro {
-        max-width: 800px;
-        margin: 0 auto;
-        font-size: 1.1rem;
-    }
-}
-
-//================================================
-// SERVICES SECTION
-//================================================
-.services-section {
-    .section-intro {
-        text-align: center;
-        margin-bottom: 3rem;
-        max-width: 700px;
-        margin-left: auto;
-        margin-right: auto;
-    }
-
-    .services-grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 2rem;
-        margin-top: 3rem;
-    }
-
-    .service-card {
-        background: var(--white-color);
+@media (min-width: 1024px) {
+    .page-container {
         padding: 2rem;
-        text-align: center;
-        border-radius: 10px;
-        box-shadow: 0 5px 25px rgba(0, 0, 0, 0.07);
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-
-        &:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
-        }
-
-        .service-icon img {
-            width: 150px;
-            height: 150;
-            margin-bottom: 1.5rem;
-        }
-
-        h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: var(--primary-color);
-        }
-    }
-}
-
-//================================================
-// HOW IT WORKS SECTION
-//================================================
-.how-it-works {
-    background-color: var(--light-grey);
-
-    .steps-container {
-        display: flex;
-        justify-content: space-around;
-        align-items: center;
-        margin-top: 3rem;
     }
 
-    .step {
-        text-align: center;
-        max-width: 250px;
-    }
-
-    .step-number {
-        width: 50px;
-        height: 50px;
-        background-color: var(--primary-color);
-        color: var(--white-color);
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 1.5rem;
-        font-weight: bold;
-        margin: 0 auto 1rem;
-    }
-
-    .step-arrow {
-        font-size: 2.5rem;
-        color: var(--secondary-color);
-    }
-}
-
-//================================================
-// FOOTER
-//================================================
-.main-footer-bottom {
-    background-color: var(--primary-color);
-    color: var(--white-color);
-    text-align: center;
-    padding: 4rem 2rem;
-
-    h3 {
-        font-size: 2rem;
-        margin-bottom: 1rem;
-        color: var(--white-color);
-    }
-
-    p {
-        color: rgba(255, 255, 255, 0.9);
-        margin-bottom: 2rem;
-    }
-}
-
-//================================================
-// RESPONSIVENESS
-//================================================
-@media (max-width: 992px) {
-    h2 {
-        font-size: 2rem;
-    }
-
-    .hero h1 {
-        font-size: 2.8rem;
-    }
-}
-
-@media (max-width: 768px) {
-    .nav-links {
-        display: none;
-    }
-
-    // Simple responsive solution for menu
-
-    .how-it-works .steps-container {
-        flex-direction: column;
-    }
-
-    .step-arrow {
-        transform: rotate(90deg);
-        margin: 1rem 0;
-    }
-}
-
-/* In your component's .scss file */
-
-.services-section {
-    padding: 48px 24px;
-    background-color: #f8f9fa;
-    /* A light, neutral background */
-
-    @media (max-width: 575px) {
-        padding: 32px 16px;
-    }
-}
-
-.section-header {
-    text-align: center;
-    margin-bottom: 24px;
-
-    .section-title {
-        font-size: 2.25rem;
-        font-weight: 700;
-        color: #333;
-        margin-bottom: 8px;
-
-        @media (max-width: 575px) {
-            font-size: 1.75rem;
-        }
-    }
-
-    .section-subtitle {
-        font-size: 1rem;
-        color: #666;
-    }
-}
-
-.service-card {
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    cursor: pointer;
-
-    &:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-    }
-
-    ::ng-deep .ant-card-body {
-        padding: 0 !important;
-    }
-}
-
-.service-photo-container {
-    width: 100%;
-    padding-top: 66.66%;
-    /* Creates a 3:2 aspect ratio for the image */
-    position: relative;
-    overflow: hidden;
-
-    .service-photo {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        transition: transform 0.3s ease;
-
-        &:hover {
-            transform: scale(1.05);
-        }
-    }
-}
-
-.service-content {
-    padding: 24px;
-
-    .service-title {
-        font-size: 1.25rem;
-        font-weight: 600;
-        color: #333;
-        margin-bottom: 8px;
-    }
-
-    .service-description {
-        font-size: 0.9rem;
-        line-height: 1.5;
-        color: #666;
-        margin-bottom: 0;
-    }
-}
-
-/* ===============================================================
-   Slider Card Overlay SCSS
-   - Adds a fully responsive hover overlay to the product slider.
-   - Assumes variables like --primary-color and --accent-color are available.
-   =============================================================== */
-
-.product-slider {
-    // This parent container already exists in your code.
-    // The styles below target its children.
-
-    .product-card {
-        // Make the card a positioning container for the overlay
-        position: relative;
-        overflow: hidden; // Ensures the overlay corners are clipped by the card's border-radius
-        cursor: pointer; // Reinforces that the card is clickable
-
-        .product-image {
-            transition: transform 0.4s ease;
-        }
-
-        // Add a subtle zoom effect to the image when the card is hovered
-        &:hover .product-image {
-            transform: scale(1.05);
-        }
-
-
-    }
-}
-
-a {
-    color: $tertiary-color;
-}
-
-/* A central SCSS file for variables can be imported here */
-// @import '../../assets/scss/_variables.scss';
-
-.section-header-container {
-    padding: 32px 16px;
-    text-align: center;
-    font-family: 'Arial', sans-serif;
-
-    @media (min-width: 768px) {
-        padding: 64px 32px;
-    }
-
-    h2 {
-        font-size: 2.5em;
-        font-weight: 700;
-        color: var(--title-color, #333);
-        margin-bottom: 12px;
-
-        @media (min-width: 768px) {
-            font-size: 3em;
-        }
-    }
-
-    .sub-title {
-        font-size: 1em;
-        font-weight: 500;
-        color: var(--subtitle-color, #f0a300);
-        text-transform: uppercase;
-        margin-bottom: 8px;
-    }
-
-    .section-intro {
-        max-width: 700px;
-        margin: 0 auto;
-        font-size: 1em;
-        line-height: 1.6;
-        color: var(--description-color, #666);
-    }
-}
-
-/* Theme variations (optional but great for professionalism) */
-.section-header-container.dark {
-    background-color: var(--dark-bg, #2c3e50);
-
-    h2 {
-        color: var(--dark-title, #ffffff);
-    }
-
-    .sub-title {
-        color: var(--dark-subtitle, #f1c40f);
-    }
-
-    .section-intro {
-        color: var(--dark-description, #e0e0e0);
+    .product-slider {
+        gap: 1rem;
     }
 }

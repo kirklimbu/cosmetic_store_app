@@ -1,4 +1,4 @@
-import { CommonModule, NgOptimizedImage } from '@angular/common';
+import { CommonModule } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
@@ -6,9 +6,10 @@ import {
   ElementRef,
   inject,
   input,
-  model,
+  Input,
   ViewChild,
 } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzGridModule } from 'ng-zorro-antd/grid';
@@ -17,11 +18,9 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
 import { NzTagModule } from 'ng-zorro-antd/tag';
-import { NepaliDateFormatterPipe } from '../../pipes/nepali-date-formatter.pipe';
-import { SanitizeHtmlPipe } from '../../pipes/sanitize-html.pipe';
-import { TruncatePipe } from '../../util-common/truncate.pipe';
 import { PageHeaderSection } from '../page-header-section/page-header-section';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ProductPage } from '../product-page/product-page';
+import { IProduct } from 'src/app/domains/home/data/model/home.model';
 
 @Component({
   selector: 'app-product-slider',
@@ -33,21 +32,20 @@ import { Router, ActivatedRoute } from '@angular/router';
     NzTagModule,
     NzPageHeaderModule,
     NzIconModule,
-    NgOptimizedImage,
     NzSkeletonModule,
     // project
-    TruncatePipe,
-    SanitizeHtmlPipe,
-    NepaliDateFormatterPipe,
     NzCarouselModule,
     PageHeaderSection,
+    ProductPage,
   ],
   templateUrl: './product-slider.html',
   styleUrl: './product-slider.scss',
 })
 export class ProductSlider {
   // props
-  data = input<any[]>([]);
+  // data = input<any[]>([]);
+  // @Input() data: any;
+  data = input<IProduct[]>([]);
 
   @ViewChild('productSlider', { static: false }) productSlider!: ElementRef;
 
@@ -64,25 +62,16 @@ export class ProductSlider {
     });
   }
 
-  scrollRight() {
-    const slider = this.productSlider.nativeElement;
-    const maxScrollLeft = slider.scrollWidth - slider.clientWidth;
-
-    if (Math.abs(slider.scrollLeft - maxScrollLeft) < 5) {
-      // Reset to beginning smoothly
-      slider.scrollTo({
-        left: 0,
-        behavior: 'smooth',
-      });
-    } else {
-      slider.scrollBy({
-        left: 240,
-        behavior: 'smooth',
-      });
-    }
+  scrollRight(): void {
+    this.productSlider.nativeElement.scrollBy({
+      left: 300,
+      behavior: 'smooth',
+    });
   }
 
   ngOnInit(): void {
+    console.log('product slider', this.data);
+
     if (!this.data().length) {
       // this.fetchList();
       // this.data.set([]);

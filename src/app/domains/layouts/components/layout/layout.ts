@@ -4,6 +4,7 @@ import { RouterOutlet } from '@angular/router';
 import { FooterComponent } from '../footer/footer.component';
 import { HeaderComponent } from '../header/header.component';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
+import { HeaderTopComponent } from '../header-top/header-top.component';
 
 @Component({
   selector: 'app-layout',
@@ -13,6 +14,7 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
     NzLayoutModule,
     HeaderComponent,
     FooterComponent,
+    HeaderTopComponent,
   ],
   templateUrl: './layout.html',
   styleUrl: './layout.scss',

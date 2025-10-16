@@ -25,7 +25,7 @@
                     <h3 class="product-title">{{ product.name }}</h3>
                     <p class="product-price">Rs. {{ product.mrp }}</p>
 
-                    @if(product.pricePerUnit2 > 0) {
+                    <!-- @if(product.pricePerUnit2 > 0) {
                     <p class="product-meta">
                         <span nz-typography>
                             Rate:
@@ -40,9 +40,9 @@
                             }
                         </span>
                     </p>
-                    }
+                    } -->
 
-                    <p class="product-meta">
+                    <!-- <p class="product-meta">
                         <span nz-typography>
                             Rate:
                             @if(product.hasEnableMargin) {
@@ -55,7 +55,7 @@
                             </del>
                             }
                         </span>
-                    </p>
+                    </p> -->
 
 
 
@@ -93,14 +93,14 @@
                     }
 
                     <!-- Savings / Net Price -->
-                    <div class="saving">
+                    <!-- <div class="saving">
                         <p class="product-meta">
                             Saving: <span>Rs. {{ product.saving }}</span>
                         </p>
                         <p class="product-meta">
                             Net Price: <span>Rs. {{ product.netAmt }}</span>
                         </p>
-                    </div>
+                    </div> -->
 
                     <!-- Remarks -->
 
@@ -123,3 +123,11 @@
         }
     </div>
 </section>
+
+<div class="product-list" nz-row [nzGutter]="[16, 16]">
+    <div nz-col [nzXs]="24" [nzMd]="12">
+
+        @for (product of productState.filteredProducts(); track product.stockMasterId) {
+        }
+    </div>
+    <!-- <app-product-page /> -->

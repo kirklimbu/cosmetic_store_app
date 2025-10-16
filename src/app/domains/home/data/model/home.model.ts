@@ -59,11 +59,12 @@ export interface IProduct {
   categoryId: number;
   companyId: number;
   category: string;
-  company: string
+  company: string;
   name: string;
   remaining: number;
   unit: string;
   path: string;
+  description: string;
   hasActive: true;
   mrp: number;
   pricePerUnit: number;

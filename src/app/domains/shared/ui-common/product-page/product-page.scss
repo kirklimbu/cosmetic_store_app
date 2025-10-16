@@ -1,0 +1,326 @@
+// Mobile-first product card - Clean and readable
+.product-card {
+    background: #fff;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
+    transition: all 0.3s ease;
+    border: 1px solid #f0f0f0;
+    height: 310px;
+    width: 160px;
+    display: flex;
+    flex-direction: column;
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+
+    // Mobile: 2 items - 48% width with minimal gap
+
+    &:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    }
+
+    // Product image section - Fixed proportions
+    .product-image {
+        position: relative;
+        height: 160px; // Fixed height for consistency
+        overflow: hidden;
+        background: #f8f9fa;
+
+        img {
+            width: 100%;
+            height: 100%; // Fixed height for consistency
+            object-fit: cover; // Changed to cover for better appearance
+            transition: transform 0.3s ease;
+        }
+
+        &:hover img {
+            transform: scale(1.03);
+        }
+
+        .product-badges {
+            position: absolute;
+            top: 6px;
+            left: 6px;
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            z-index: 2;
+
+            .badge {
+                padding: 0.2rem 0.4rem;
+                border-radius: 3px;
+                font-size: 0.65rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                letter-spacing: 0.3px;
+
+                &.new {
+                    background: #52c41a;
+                    color: white;
+                }
+
+                &.featured {
+                    background: #1890ff;
+                    color: white;
+                }
+
+                &.discount {
+                    background: #ff4d4f;
+                    color: white;
+                }
+            }
+        }
+    }
+
+    // Product info section - Clean and readable
+    .product-info {
+        padding: 0.75rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 0.4rem;
+
+        .product-brand {
+            font-size: 0.7rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 0.3px;
+            font-weight: 600;
+            line-height: 1.2;
+        }
+
+        .product-name {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #2c3e50;
+            line-height: 1.3;
+            margin: 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            min-height: 2.2em;
+        }
+
+        .price-section {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.3rem;
+            margin: 0.2rem 0;
+
+            .current-price {
+                font-size: 0.95rem;
+                font-weight: 700;
+                color: #e84393;
+            }
+
+            .original-price {
+                font-size: 0.75rem;
+                color: #999;
+                text-decoration: line-through;
+            }
+
+            .discount-percent {
+                font-size: 0.7rem;
+                color: #ff4d4f;
+                font-weight: 600;
+                background: #fff0f0;
+                padding: 0.15rem 0.3rem;
+                border-radius: 3px;
+            }
+        }
+
+        .rating-section {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+
+            nz-rate {
+                font-size: 10px;
+            }
+
+            .rating-value {
+                font-size: 0.75rem;
+                font-weight: 600;
+                color: #333;
+            }
+
+            .reviews {
+                font-size: 0.7rem;
+                color: #888;
+            }
+        }
+
+        .stock-info {
+            nz-tag {
+                font-size: 0.65rem;
+                padding: 0.15rem 0.5rem;
+                border: none;
+                border-radius: 4px;
+                font-weight: 500;
+            }
+        }
+
+        .action-buttons {
+            margin-top: auto;
+            padding-top: 0.4rem;
+
+            .add-to-cart-btn {
+                width: 100%;
+                height: 32px;
+                border: none;
+                border-radius: 6px;
+                font-size: 0.8rem;
+                font-weight: 600;
+                transition: all 0.3s ease;
+                background: linear-gradient(135deg, #e84393, #fd79a8);
+                color: white;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 0.3rem;
+
+                &:hover:not(:disabled) {
+                    transform: translateY(-1px);
+                    box-shadow: 0 2px 8px rgba(232, 67, 147, 0.3);
+                }
+
+                &:disabled {
+                    background: #bdc3c7;
+                    cursor: not-allowed;
+                    transform: none;
+                }
+
+                &.out-of-stock {
+                    background: #e74c3c;
+                }
+            }
+        }
+    }
+}
+
+// ========== RESPONSIVE BREAKPOINTS ==========
+
+// Tablet: 3 items
+@media (min-width: 768px) {
+    .product-card {
+        width: 250px;
+        height: 390px;
+
+
+        .product-image {
+            height: 250px;
+        }
+
+        .product-info {
+            padding: 0.875rem;
+            gap: 0.5rem;
+
+            .product-brand {
+                font-size: 0.75rem;
+            }
+
+            .product-name {
+                font-size: 0.85rem;
+            }
+
+            .current-price {
+                font-size: 1rem;
+            }
+
+            .add-to-cart-btn {
+                height: 34px;
+                font-size: 0.82rem;
+            }
+        }
+    }
+}
+
+// Desktop: 5 items
+@media (min-width: 1024px) {
+    .product-card {
+        width: 250px; // 5 items with minimal gap
+        height: 420px;
+
+        .product-image {
+            height: 160px;
+        }
+
+        .product-info {
+            padding: 1rem;
+
+            .product-brand {
+                font-size: 0.78rem;
+            }
+
+            .product-name {
+                font-size: 0.9rem;
+            }
+
+            .current-price {
+                font-size: 1.05rem;
+            }
+
+            .add-to-cart-btn {
+                height: 36px;
+                font-size: 0.85rem;
+            }
+        }
+    }
+}
+
+// Large desktop: 5 items with slightly larger cards
+@media (min-width: 1200px) {
+    .product-card {
+        width: 250px; // 5 items with minimal gap
+        height: 420px;
+
+        .product-image {
+            height: 250px;
+        }
+
+        .product-info {
+            .product-name {
+                font-size: 0.92rem;
+            }
+        }
+    }
+}
+
+// Loading animation
+@keyframes shimmer {
+    0% {
+        background-position: -468px 0;
+    }
+
+    100% {
+        background-position: 468px 0;
+    }
+}
+
+.loading-skeleton {
+    animation: shimmer 1.5s infinite linear;
+    background: linear-gradient(to right, #f6f7f8 8%, #edeef1 18%, #f6f7f8 33%);
+    background-size: 800px 104px;
+}
+
+// Accessibility
+@media (prefers-reduced-motion: reduce) {
+    .product-card {
+        transition: none;
+
+        &:hover {
+            transform: none;
+        }
+    }
+
+    .product-image img {
+        transition: none;
+    }
+
+    .add-to-cart-btn:hover:not(:disabled) {
+        transform: none;
+    }
+}

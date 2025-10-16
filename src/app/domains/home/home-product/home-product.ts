@@ -27,6 +27,7 @@ import { NzTypographyModule } from 'ng-zorro-antd/typography';
 import { debounceTime, Subject } from 'rxjs';
 import { SearchService } from '../../search-result-page/data/service/search.service';
 import { LazyImgDirective } from '../../shared/directives/lazyImage/lazyImage.directive';
+import { ProductPage } from '../../shared/ui-common/product-page/product-page';
 @Component({
   selector: 'app-home-product',
   imports: [
@@ -43,6 +44,7 @@ import { LazyImgDirective } from '../../shared/directives/lazyImage/lazyImage.di
     NzDividerModule,
     // project
     LazyImgDirective,
+    ProductPage,
   ],
   templateUrl: './home-product.html',
   styleUrl: './home-product.scss',
