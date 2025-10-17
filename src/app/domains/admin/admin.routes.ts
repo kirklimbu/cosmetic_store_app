@@ -87,6 +87,12 @@ export const FEATURE_ADMIN_ROUTES: Routes = [
     loadChildren: () =>
       import('../supplier').then((m) => m.FEATURE_SUPPLIER_ROUTES),
   },
+  {
+    path: '',
+    canActivate: [AuthGuard],
+    loadChildren: () =>
+      import('../hero-banner').then((m) => m.FEATURE_HERO_BANNER_ROUTES),
+  },
 
   {
     path: '**',

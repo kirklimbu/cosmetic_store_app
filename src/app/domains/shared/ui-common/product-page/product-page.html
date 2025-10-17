@@ -8,7 +8,7 @@
             <!-- <div class="badge discount">15% OFF</div> -->
         </div>
 
-        <img [src]="data().path" [alt]="data().name" loading="lazy"
+        <img [appLazyImg]="data().path" [alt]="data().name"
             onerror="this.src='/assets/images/placeholder-product.jpg'" />
     </div>
 
@@ -22,7 +22,7 @@
 
         <!-- Price - Always Visible -->
         <div class="price-section">
-            <span class="current-price">₹{{ data().mrp }}</span>
+            <span class="current-price">Rs. {{ data().mrp }}</span>
             <!-- Uncomment when you have offer price -->
             <!-- <span class="original-price">₹{{ data().originalPrice }}</span> -->
             <!-- <span class="discount-percent">15% off</span> -->

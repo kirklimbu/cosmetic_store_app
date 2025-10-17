@@ -1,4 +1,4 @@
-<section class="section-header-container" [ngClass]="theme">
+<!-- <section class="section-header-container" [ngClass]="theme">
     <div class="header-content">
         @if (subtitle()) {
         <div class="sub-title">{{ subtitle() }}</div>
@@ -10,4 +10,14 @@
         <p class="section-intro">{{ description() }}</p>
         }
     </div>
-</section>
+</section> -->
+
+
+<div class="section-header">
+    <div class="header-content">
+        <h2 class="section-title"> {{title()}}</h2>
+        <p class="section-subtitle">
+            {{ (totalItems() + ' products available') }}
+        </p>
+    </div>
+</div>

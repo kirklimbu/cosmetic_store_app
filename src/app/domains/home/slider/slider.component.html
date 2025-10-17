@@ -16,7 +16,7 @@
     @for (index of data() ; track index.bannerId) {
     <div nz-carousel-content>
       <div class="banner-slide">
-        <img class="hero-bg" [ngSrc]="index.path" height="250" width="450" alt="Banner image" loading="lazy" />
+        <img class="hero-bg" [appLazyImg]="index.path" height="250" width="450" alt="Banner image" loading="lazy" />
 
         <!-- <div class="banner-overlay-glass">
           <h3 class="hero-title">{{ index.title |titlecase}}</h3>

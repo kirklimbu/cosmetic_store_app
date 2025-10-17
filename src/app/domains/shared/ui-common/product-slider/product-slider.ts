@@ -45,7 +45,10 @@ export class ProductSlider {
   // props
   // data = input<any[]>([]);
   // @Input() data: any;
-  data = input<IProduct[]>([]);
+  data = input<any[]>([]);
+  title = input<string>('');
+  subtitle = input<string>('');
+  description = input<string>('');
 
   @ViewChild('productSlider', { static: false }) productSlider!: ElementRef;
 

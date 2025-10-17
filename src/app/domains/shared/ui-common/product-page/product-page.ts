@@ -12,6 +12,7 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { IProduct } from 'src/app/domains/home/data/model/home.model';
 // eslint-disable-next-line @nx/enforce-module-boundaries
 import { IStock } from 'src/app/domains/stock/data/model/stock';
+import { LazyImgDirective } from '../../directives/lazyImage/lazyImage.directive';
 
 @Component({
   selector: 'app-product-page',
@@ -26,6 +27,8 @@ import { IStock } from 'src/app/domains/stock/data/model/stock';
     NzGridModule,
     NzIconModule,
     NzBadgeModule,
+    // project
+    LazyImgDirective,
   ],
   templateUrl: './product-page.html',
   styleUrl: './product-page.scss',

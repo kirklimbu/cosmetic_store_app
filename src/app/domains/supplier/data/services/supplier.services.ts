@@ -8,8 +8,8 @@ import {
   ISupplierFormDto,
   ISupplierTransaction1Dto,
 } from '../model/supplier.model';
-import { environment } from 'src/environments/environment';
 import { ICustomResponse } from 'src/app/domains/shared/models/CustomResponse.model';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',

@@ -1,0 +1,58 @@
+<section>
+
+    <div class="table-operations">
+        <!-- <nz-input-group [nzSuffix]="suffixIconSearch">
+                <input [(ngModel)]="searchValue" type="text" nz-input placeholder="Search student... " />
+            </nz-input-group>
+            <ng-template #suffixIconSearch>
+                <span nz-icon nzType="search"></span>
+            </ng-template> -->
+        <!-- <button nz-button nzType="default" (click)="onSearch()">
+        <span nz-icon nzType="search"></span>
+        Search
+      </button> -->
+        <!-- @if (setList$ | async; as set) {
+        } -->
+        <button class="action-button" nz-button nzType="primary" routerLinkActive (click)="onAdd()">
+            Add
+        </button>
+
+    </div>
+
+    @if (data$ | async; as table) {
+    <nz-table #borderedTable nzBordered nzTitle="Banner List" [nzData]="table" [nzFrontPagination]="false"
+        class="events-table">
+        <thead>
+            <tr>
+                <th [nzAlign]="'center'" class="col-sn">Sn.</th>
+                <th [nzAlign]="'center'" class="col-image">Image</th>
+                <!-- <th [nzAlign]="'center'" class="col-title">Title</th> -->
+                <th [nzAlign]="'center'" class="col-title">Is Active</th>
+                <th [nzAlign]="'center'" class="col-action">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @for (data of borderedTable.data; track data.bannerId; let i = $index) {
+            <tr>
+                <td [nzAlign]="'center'">{{ i + 1 }}.</td>
+                <td [nzAlign]="'center'">
+                    <img height="80" width="120" [ngSrc]="data.path" alt="Our event Image" class="event-image" />
+                </td>
+                <!-- <td [nzAlign]="'center'">{{ data.title }}</td> -->
+
+                <td [nzAlign]="'center'">{{ data.hasActive}}</td>
+
+                <td [nzAlign]="'center'">
+                    <div class="action-buttons">
+                        <button nzTooltipTitle="Edit" nzTooltipPlacement="topLeft" nz-tooltip nz-button nzType="primary"
+                            nzGhost (click)="onEdit(data.bannerId)">
+                            <span nz-icon nzType="edit"></span>
+                        </button>
+                    </div>
+                </td>
+            </tr>
+            }
+        </tbody>
+    </nz-table>
+    }
+</section>

@@ -12,4 +12,6 @@ export class PageHeaderSection {
   subtitle = input<string | null>(null);
   description = input<string | null>(null);
   theme = input<'light' | 'dark'>('light');
+
+  totalItems = input<number>(0);
 }

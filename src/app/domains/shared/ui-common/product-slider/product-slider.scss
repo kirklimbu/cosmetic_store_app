@@ -107,10 +107,30 @@
 
 @media (min-width: 1024px) {
     .page-container {
-        padding: 2rem;
+        padding: 2rem 1rem;
     }
 
     .product-slider {
         gap: 1rem;
     }
+}
+
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: lighten($gray, 60%);
+    border-bottom: 1px solid $border-color;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    @media (min-width: 1024px) {
+        border-bottom: none;
+    }
+}
+
+.header-content {
+    flex: 1;
+    min-width: 0;
 }

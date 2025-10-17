@@ -1,6 +1,18 @@
 <!-- PAGE HEADER -->
+@if(data().length>0){
+
 <div class="page-container">
-    <app-page-header-section [subtitle]="'Events'" [title]="''" [description]="'Join us in making a difference.'" />
+    <app-page-header-section [totalItems]="data().length" [theme]="'light'" [description] [subtitle]="title()"
+        [title]="title()" [description]="description()" />
+    <!-- <div class="section-header">
+
+        <div class="header-content">
+            <h2 class="section-title"> {{title()}}</h2>
+            <p class="section-subtitle">
+                {{ (data().length + ' products available') }}
+            </p>
+        </div>
+    </div> -->
 
     <!-- CONTENT -->
     @if (!data().length) {
@@ -40,3 +52,4 @@
     </div>
     }
 </div>
+}
