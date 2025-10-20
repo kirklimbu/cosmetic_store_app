@@ -14,7 +14,7 @@ export const FEATURE_AUTH_ROUTES: Routes = [
     component: RegistrationComponent,
   },
   {
-    path: 'forget-password',
+    path: 'forgot-password',
     component: ForgetPasswordComponent,
   },
   {

@@ -32,3 +32,9 @@ input[disabled] {
         padding: 10px;
     }
 }
+
+button {
+    transition: all 0.3s ease;
+    background: linear-gradient(135deg, #e84393, #fd79a8);
+    color: $white;
+}

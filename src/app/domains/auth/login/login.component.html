@@ -2,7 +2,7 @@
   <div class="card">
     <div class="img-section">
       <!-- <img nz-image [nzSrc]="logo" alt="logo" [nzFallback]="fallback"> -->
-      <img nz-image width="200px" height="200px" nzSrc="logo" [nzFallback]="fallback" alt="" />
+      <img nz-image width="200px" height="200px" nzSrc="assets/images/logo/logo.png" [nzFallback]="fallback" alt="" />
     </div>
     <div class="form-section">
       <form nz-form [formGroup]="form" class="login-form" (ngSubmit)="onLogin()">
@@ -26,22 +26,25 @@
             </ng-template>
           </nz-form-control>
         </nz-form-item>
-        <!-- <div nz-row class="login-form-margin">
-          <div nz-col [nzSpan]="12">
-            <label nz-checkbox>
-              <span>Remember me</span>
-            </label>
-          </div>
-          <div nz-col [nzSpan]="12">
-            <a class="login-form-forgot">Forgot password</a>
-          </div>
-        </div> -->
+
         <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" [disabled]="!form.valid">
           Log in
         </button>
         <!-- <a class="register" [routerLink]="['/home']" routerLinkActive="router-link-active">Cancel</a> -->
-
-        <!-- <ng-container *ngIf="!showLinks()">
+        <div nz-row class="login-form-margin">
+          <!-- <div nz-col [nzSpan]="12">
+            <label nz-checkbox>
+              <span>Remember me</span>
+            </label>
+          </div> -->
+          <div nz-col [nzSpan]="12">
+            <a class="login-form-forgot" routerLink="/auth/forgot-password">Forgot password</a>
+          </div>
+          <div nz-col [nzSpan]="12">
+            <a class="login-form-forgot" routerLink="/auth/registration">Register</a>
+          </div>
+        </div>
+        <!-- <ng-container>
           <app-secondary-links [primaryLinkTitle]="'Register as new user'" [secondaryLinkTitle]="'Cancel'"
             [showSecondaryLink]="false" [secondaryLinkLabel]="'Cancel'" [primaryLinkLabel]="'Register'"
             (primaryAction)="onRegister()" />

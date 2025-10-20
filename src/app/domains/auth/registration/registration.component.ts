@@ -7,7 +7,7 @@ import {
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import { AuthService } from '../../shared/util-auth/services/auth-http/auth.service';
 
 import { FormSubmitButtonsComponent } from '../../shared/ui-common/form-submit-buttons/form-submit-buttons.component';
@@ -28,6 +28,7 @@ import { ICustomResponse } from '../../shared/models/CustomResponse.model';
   selector: 'app-registration',
   imports: [
     CommonModule,
+    RouterModule,
     ReactiveFormsModule,
     FormSubmitButtonsComponent,
     NzIconModule,

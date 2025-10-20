@@ -112,6 +112,7 @@ export class LoginComponent implements OnInit {
   }
 
   private navigateBasedOnRole(): void {
+    // #TODO check last route and send to home/admin
     // Use the updated state from AuthState
     const isAdmin = this.authState.isAdmin();
     console.log('isAdmin', isAdmin);

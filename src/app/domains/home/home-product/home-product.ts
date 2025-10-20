@@ -1,3 +1,4 @@
+import { MessageService } from '@logger/message.service';
 import { CommonModule } from '@angular/common';
 import {
   Component,
@@ -78,6 +79,7 @@ export class Homeproduct implements OnInit {
 
   private readonly router = inject(Router);
   private readonly cartService = inject(CartService);
+  private readonly messageService = inject(MessageService);
   private readonly authState = inject(AuthState);
   authenticated = this.authState.isAuthenticated;
   productState = inject(SearchService);
@@ -144,7 +146,10 @@ export class Homeproduct implements OnInit {
 
     this.cartService.saveCart(payload).subscribe((res) => {
       const updatedProduct = res;
-      // this.data = this.data.map((product) =>
+      this.messageService.createMessage(
+        'success',
+        `${item.name} added to your cart successfully`
+      ); // this.data = this.data.map((product) =>
       const updatedDate = this.productState
         .filteredProducts()
         .map((product) =>

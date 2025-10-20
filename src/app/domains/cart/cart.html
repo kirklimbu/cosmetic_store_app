@@ -8,7 +8,7 @@
 
 
         @if(cart.length>0){
-        <button nz-button nzType="primary" class="checkout-btn" (click)="onCheckout()">
+        <button nz-button class="checkout-btn" (click)="onCheckout()">
             Proceed to Checkout
         </button>
 
@@ -18,7 +18,7 @@
         @if(cart.length===0){
         <div class="empty-cart">
             <p>Your cart is empty.</p>
-            <button nz-button nzType="primary" routerLink="/home">Continue Adding Items</button>
+            <button nz-button routerLink="/home">Continue Shopping</button>
         </div>
         }
         }

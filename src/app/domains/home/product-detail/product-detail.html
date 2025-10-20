@@ -1,35 +1,76 @@
-<section class="product-detail">
-    <!-- Left: Image Carousel -->
-    <div class="product-images">
-        <nz-carousel nzDotPosition="bottom" nzAutoPlay>
-            @for (img of product().images; track $index) {
-            <div class="carousel-item">
-                <img [src]="img" [alt]="product().name" />
+<nz-card class="product-detail-card" nzBordered>
+    <div class="pd-grid">
+        <!-- LEFT: IMAGE SECTION -->
+        <div class="pd-image-col" role="region" aria-label="Product images">
+            <div class="main-image">
+                <img nz-image [nzSrc]="product().path" nzWidth="100%" nzHeight="100%" nzPreview alt="product().name" />
+
+                <ng-template #placeholderTpl>
+                    <div class="image-placeholder" aria-hidden="true">
+                        Image not available
+                    </div>
+                </ng-template>
             </div>
-            }
-        </nz-carousel>
-    </div>
 
-    <!-- Right: Product Info -->
-    <div class="product-info">
-        <h1 class="product-title">{{ product().name }}</h1>
-        <p class="product-price">${{ product().price }}</p>
-        <p class="product-description">{{ product().description }}</p>
-        <p class="product-stock" [class.in-stock]="product().stock" [class.out-stock]="!product().stock">
-            {{ product().stock ? 'In Stock' : 'Out of Stock' }}
-        </p>
-
-        <!-- Quantity Selector -->
-        <div class="quantity-section">
-            <label for="quantity">Quantity:</label>
-            <nz-input-number [ngModel]="quantity()" (ngModelChange)="quantity.set($event)" [nzMin]="1" [nzStep]="1"
-                [nzMax]="10" (ngModelChange)="updateQuantity($event)"></nz-input-number>
+            <!-- <div class="thumbs" *ngIf="images().length > 1">
+                <button type="button" class="thumb" *ngFor="let img of images(); let i = index"
+                    [class.active]="i === selectedImageIndex()" (click)="onSelectImage(i)"
+                    aria-label="Select image {{ i + 1 }}">
+                    <img [src]="img" [alt]="product()?.name + ' thumbnail ' + (i + 1)" />
+                </button>
+            </div> -->
         </div>
 
-        <!-- Action Buttons -->
-        <div class="action-buttons">
-            <button nz-button nzType="primary" class="add-cart-btn">🛒 Add to Cart</button>
-            <button nz-button nzType="default" class="buy-now-btn">⚡ Buy Now</button>
+        <!-- RIGHT: INFO SECTION -->
+        <div class="pd-info-col" role="region" aria-label="Product information">
+            <div class="meta">
+                <div class="crumbs">
+                    <a class="category" routerLink="/category/{{ product()?.categoryId }}">{{ product()?.category }}</a>
+                    <span class="dot">•</span>
+                    <a class="brand" routerLink="/brand/{{ product()?.companyId }}">{{ product()?.company }}</a>
+                </div>
+
+                <h1 class="title">{{ product()?.name }}</h1>
+
+                <div class="price-stack">
+                    <div class="price-now">Rs. {{ formattedPrice(product()?.pricePerUnit ?? 0) }}</div>
+                    <div class="mrp" *ngIf="product()?.mrp && product()?.mrp > product()?.pricePerUnit">
+                        <span class="mrp-label">MRP</span>
+                        <span class="mrp-value">Rs. {{ formattedPrice(product()?.mrp ?? 0) }}</span>
+                    </div>
+                    <div class="saving" *ngIf="saving() > 0">
+                        You save: Rs. {{ formattedPrice(saving()) }}
+                    </div>
+
+                    <div class="stock-badge">
+                        <nz-badge *ngIf="!isOutOfStock()" nzStatus="processing"
+                            [nzText]="product()?.remaining + ' in stock'"></nz-badge>
+                        <nz-badge *ngIf="isOutOfStock()" nzStatus="error" nzText="Out of stock"></nz-badge>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <nz-input-number [ngModel]="qty()" min="1" max="product()?.remaining || 9999"
+                        (ngModelChange)="onQtyChange($event)" aria-label="Quantity"></nz-input-number>
+
+                    <button class="add-to-cart-btn " nz-button nzType="primary" [disabled]="isOutOfStock()" (click)="addToCart()">
+                        Add to cart
+                    </button>
+
+                    <!-- <button nz-button nzType="default" class="buy-now" [disabled]="isOutOfStock()">
+                        Buy now
+                    </button> -->
+                </div>
+
+                <div class="shipping-note" *ngIf="!isOutOfStock()">
+                    <small>Free delivery within Damak for orders above Rs. 1000 • COD available</small>
+                </div>
+
+                <div class="product-meta">
+                    <div><strong>Unit:</strong> {{ product()?.unit }}</div>
+                    <div *ngIf="product()?.minNotification">Min notify: {{ product()?.minNotification }}</div>
+                </div>
+            </div>
         </div>
     </div>
-</section>
+</nz-card>

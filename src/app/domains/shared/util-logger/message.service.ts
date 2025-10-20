@@ -12,7 +12,7 @@ export class MessageService {
   default_duration = 10_000;
   private message = inject(NzMessageService);
 
-  createMessage(type: string, msg: string, duration?: number): void {
+  createMessage(type: string, msg: string): void {
     this.message.create(type, `${msg}`, {}).onClose!;
   }
 }
