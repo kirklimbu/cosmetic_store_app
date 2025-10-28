@@ -1,13 +1,14 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
   ChangeDetectorRef,
   Component,
-  DestroyRef,
   HostListener,
+  Inject,
   inject,
   Input,
   OnChanges,
   OnInit,
+  PLATFORM_ID,
   ViewChild,
 } from '@angular/core';
 import { RouterModule } from '@angular/router';
@@ -15,9 +16,8 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzCarouselComponent, NzCarouselModule } from 'ng-zorro-antd/carousel';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
-import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
-import { HomeService } from '../home.service';
 import { NzImageModule } from 'ng-zorro-antd/image';
+import { NzPageHeaderModule } from 'ng-zorro-antd/page-header';
 
 @Component({
   standalone: true,
@@ -51,18 +51,25 @@ export class HomeBrandComponent implements OnInit, OnChanges {
 
   @Input() data: any[] = []; // Fixed the @Input decorator
 
-  private destroyRef$ = inject(DestroyRef);
   private cd = inject(ChangeDetectorRef);
-  private categoryService = inject(HomeService);
+  @Inject(PLATFORM_ID) private platformId: object;
+  private isBrowser = false;
 
   ngOnInit(): void {
+    // this.isBrowser = isPlatformBrowser(this.platformId); // Detect browser
+
     this.chunkCategories();
+    if (this.isBrowser) {
+      console.log('brands', this.chunkCategories());
+    }
     this.cd.detectChanges();
   }
 
   @HostListener('window:resize')
   onResize() {
-    this.chunkCategories();
+    if (this.isBrowser) {
+      this.chunkCategories();
+    }
   }
 
   chunkCategories(): void {
@@ -110,7 +117,9 @@ export class HomeBrandComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    this.chunkCategories();
+    if (this.isBrowser) {
+      this.chunkCategories();
+    }
   }
 
   navigateToCategory(category: any): void {

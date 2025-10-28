@@ -16,6 +16,8 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { FooterComponent } from '../components/footer/footer.component';
 import { HeaderComponent } from '../components/header/header.component';
 import { HeaderTopComponent } from '../components/header-top/header-top.component';
+import { ScrollToTopComponent } from '../../shared/ui-common/scroll-to-top/scroll-to-top.component';
+import { WhatsappMessengerComponent } from '../../shared/ui-common/whatsapp-messenger/whatsapp-messenger.component';
 
 @Component({
   selector: 'app-common-layout',
@@ -33,6 +35,8 @@ import { HeaderTopComponent } from '../components/header-top/header-top.componen
     FooterComponent,
     HeaderComponent,
     HeaderTopComponent,
+    ScrollToTopComponent,
+    WhatsappMessengerComponent,
   ],
   //   providers: [ThemeConstantService],
 })

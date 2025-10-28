@@ -3,16 +3,17 @@ export class GlobalConstants {
   public static appTitle = 'This is example of ItSolutionStuff.com';
   public static appLogo = 'assets/images/logo/logo.png';
   public static appEmail = 'example@gmail.com';
-  public static facebook = 'https://www.facebook.com/valleymultienc';
+  public static facebook =
+    'https://www.facebook.com/profile.php?id=100063980444764';
   public static instagram = 'example@gmail.com';
   public static HEAD_OFFICE = 'Kathmandu-7, Chabahil';
-  public static HEAD_OFFICE_PHONE = 'example@gmail.com';
+  public static PHONE = '9704952594';
   public static BRANCH_ADDRESS = 'example@gmail.com';
   public static BRANCH_PHONE = 'example@gmail.com';
   public static allowedImageTypes = ['image/png', 'image/jpeg', 'image/jpg'];
   public static allowedAudioTypes = ['audio/mpeg', 'audio/wav'];
   public static maxFileSize = 100000;
-  public static whatsappLink = 'https://wa.me/9767223789';
+  public static whatsappLink = 'https://wa.me/9704952594';
   public static fbMessengerLink = 'http://m.me/valleymenc';
   public static googleMap =
     'https://www.google.com/maps/search/Valley+Multi+Education+Network+Consultancy+Pvt.Ltd./@27.7179373,85.3399136,14z/data=!3m1!4b1?entry=ttu&g_ep=EgoyMDI0MDkxNi4wIKXMDSoASAFQAw%3D%3D';

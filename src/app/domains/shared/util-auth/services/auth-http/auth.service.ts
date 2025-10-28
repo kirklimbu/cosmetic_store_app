@@ -1,11 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject, signal } from '@angular/core';
+import { Inject, Injectable, PLATFORM_ID, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
-import { IUser } from 'src/app/domains/user-profile/data/model/user-profile.model';
 import { environment } from '../../../../../../environments/environment';
 import { ICustomResponse } from '../../../models/CustomResponse.model';
 import { ILoginResponseDto, UserModel } from '../../models/user.model';
+import { IUser } from 'src/app/domains/user-profile/data/model/user-profile.model';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -13,6 +14,7 @@ export class AuthService {
   private currentUserSignal = signal<UserModel | undefined>(undefined);
   private router = inject(Router);
   private http = inject(HttpClient);
+  @Inject(PLATFORM_ID) private platformId: object;
 
   // Getter/setter for current user
   get currentUser() {
@@ -53,7 +55,9 @@ export class AuthService {
 
   private clearAuthData(): void {
     this.currentUser = undefined;
-    localStorage.removeItem('authData');
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('authData');
+    }
   }
 
   private refreshPage(): void {

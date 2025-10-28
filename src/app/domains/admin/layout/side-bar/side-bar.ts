@@ -5,13 +5,14 @@ import {
   inject,
   input,
   output,
+  PLATFORM_ID,
   signal,
 } from '@angular/core';
 import { Router, RouterModule } from '@angular/router';
 import { AuthState } from 'src/app/domains/auth/login/state/login.state';
 import { Role } from 'src/app/domains/shared/util-auth/models/user.model';
 import { MenuItem } from '../../data/model/admin-layout.model';
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { NzBreadCrumbModule } from 'ng-zorro-antd/breadcrumb';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
@@ -165,18 +166,30 @@ export class SideBar {
     () => this.adminMenuItems().length > 0 && this.userRole() === Role.ADMIN
   );
 
+  private isBrowser: boolean;
+  private platformId = inject(PLATFORM_ID);
   constructor() {
-    this.checkScreenSize();
+    this.isBrowser = isPlatformBrowser(this.platformId);
 
-    // Proper resize handling
-    if (typeof window !== 'undefined') {
-      this.resizeSubscription = new Subscription();
+    if (this.isBrowser) {
+      // Initial screen check
+      this.checkScreenSize();
+      // Resize listener
       const resizeHandler = () => this.checkScreenSize();
       window.addEventListener('resize', resizeHandler);
-      this.resizeSubscription.add(() =>
+      this.resizeSubscription = new Subscription(() =>
         window.removeEventListener('resize', resizeHandler)
       );
     }
+    // Proper resize handling
+    // if (typeof window !== 'undefined') {
+    //   this.resizeSubscription = new Subscription();
+    //   const resizeHandler = () => this.checkScreenSize();
+    //   window.addEventListener('resize', resizeHandler);
+    //   this.resizeSubscription.add(() =>
+    //     window.removeEventListener('resize', resizeHandler)
+    //   );
+    // }
 
     // Auto-close mobile menu when route changes
     effect(() => {
@@ -187,7 +200,9 @@ export class SideBar {
   }
 
   private checkScreenSize(): void {
-    this.isMobile.set(window.innerWidth < 768);
+    if (!this.isBrowser) return; // SSR fallback
+    const width = window.innerWidth;
+    this.isMobile.set(width < 768);
     if (!this.isMobile() && this.isMobileMenuOpen()) {
       this.isMobileMenuOpen.set(false);
     }

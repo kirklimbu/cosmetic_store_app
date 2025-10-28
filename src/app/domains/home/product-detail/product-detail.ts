@@ -2,7 +2,6 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   computed,
-  effect,
   inject,
   input,
   output,
@@ -18,17 +17,18 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzImageModule } from 'ng-zorro-antd/image';
+import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NzRateModule } from 'ng-zorro-antd/rate';
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzTagModule } from 'ng-zorro-antd/tag';
-import { debounceTime, map, Subject } from 'rxjs';
+import { map, Subject } from 'rxjs';
 import { AuthState } from '../../auth/login/state/login.state';
 import { CartService } from '../../cart/data/services/cart.services';
 import { SearchService } from '../../search-result-page/data/service/search.service';
 import { LazyImgDirective } from '../../shared/directives/lazyImage/lazyImage.directive';
-import { IProduct } from '../data/model/home.model';
+import { MessageService } from '@logger/message.service';
 @Component({
   selector: 'app-product-detail',
   imports: [
@@ -47,6 +47,7 @@ import { IProduct } from '../data/model/home.model';
     NzTabsModule,
     NzDividerModule,
     NzStatisticModule,
+    NzInputNumberModule,
     // project
     LazyImgDirective,
   ],
@@ -69,6 +70,8 @@ export class ProductDetail {
   private readonly router = inject(Router);
   private readonly cartService = inject(CartService);
   private readonly authState = inject(AuthState);
+  private readonly messageService = inject(MessageService);
+
   authenticated = this.authState.isAuthenticated;
   productState = inject(SearchService);
 
@@ -208,8 +211,13 @@ export class ProductDetail {
   }
 
   addToCart(): void {
+    if (!this.authenticated()) {
+      this.messageService.createMessage('info', 'Login to add items to cart');
+      this.router.navigate(['/auth/login']);
+      return;
+    }
     if (!this.canAddToCart()) {
-      this.message.error('Product is out of stock');
+      this.messageService.createMessage('error', 'Product is out of stock');
       return;
     }
 

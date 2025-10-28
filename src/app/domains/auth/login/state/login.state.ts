@@ -1,14 +1,23 @@
-import { computed, inject, Injectable, signal } from '@angular/core';
+import {
+  computed,
+  Inject,
+  inject,
+  Injectable,
+  PLATFORM_ID,
+  signal,
+} from '@angular/core';
 import { finalize, of, switchMap, tap } from 'rxjs';
 import { AuthStateModel } from 'src/app/domains/shared/util-auth/models/auth.model';
 import { AuthService } from 'src/app/domains/shared/util-auth/services/auth-http/auth.service';
 import { Role, UserModel } from '../../../shared/util-auth/models/user.model';
+import { isPlatformBrowser } from '@angular/common';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthState {
   private readonly authService = inject(AuthService);
+  @Inject(PLATFORM_ID) private platformId: object;
 
   private state = signal<AuthStateModel>({
     user: null,
@@ -52,16 +61,18 @@ export class AuthState {
   }
 
   private initializeFromStorage() {
-    const savedAuth = localStorage.getItem('Auth');
-    if (savedAuth) {
-      try {
-        const authData = JSON.parse(savedAuth);
-        this.state.set({
-          user: authData.user,
-          token: authData.token,
-        });
-      } catch (error) {
-        this.clearAuth();
+    if (isPlatformBrowser(this.platformId)) {
+      const savedAuth = localStorage.getItem('Auth');
+      if (savedAuth) {
+        try {
+          const authData = JSON.parse(savedAuth);
+          this.state.set({
+            user: authData.user,
+            token: authData.token,
+          });
+        } catch (error) {
+          this.clearAuth();
+        }
       }
     }
   }
@@ -143,12 +154,16 @@ export class AuthState {
   }
 
   private saveToStorage(authData: { user: UserModel; token: string }) {
-    const storage = localStorage;
-    storage.setItem('Auth', JSON.stringify(authData));
+    if (isPlatformBrowser(this.platformId)) {
+      const storage = localStorage;
+      storage.setItem('Auth', JSON.stringify(authData));
+    }
   }
 
   private clearStorage() {
-    localStorage.removeItem('Auth');
-    sessionStorage.removeItem('Auth');
+    if (isPlatformBrowser(this.platformId)) {
+      localStorage.removeItem('Auth');
+      sessionStorage.removeItem('Auth');
+    }
   }
 }

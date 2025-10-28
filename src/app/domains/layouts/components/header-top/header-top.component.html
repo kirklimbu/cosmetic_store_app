@@ -1,41 +1,33 @@
 <!-- begin::topbar -->
-
-
 <header class="header-top">
   <div class="section section-left">
     <div class="content">
-      <nz-icon style="font-size: 16px;" nzType="phone" nzTheme="fill"></nz-icon>
-      <a title="Call Now" href="tel:+977{{ phoneNo}}">{{ phoneNo }}</a>
+      <nz-icon nzType="phone" class="icon-phone"></nz-icon>
+      <a title="Call Now" href="tel:+977{{ phoneNo }}">{{ phoneNo }}</a>
     </div>
   </div>
 
   <div class="section section-center">
     <div class="content">
-      <div class="left-content">
+      <!-- Hidden on mobile -->
+      <!-- Optional: email, login, etc. -->
+      <!-- <div class="left-content">
         <nz-icon nzType="mail"></nz-icon>
         <a title="Send mail" href="mailto:email">{{ email }}</a>
-      </div>
-      <div class="right-content">
+      </div> -->
+      <!-- <div class="right-content">
         <a title="Login" routerLink="/auth/login">Login</a>
-      </div>
-
+      </div> -->
     </div>
   </div>
 
   <div class="section section-right">
     <div class="content">
       <a href="{{ facebookUrl }}" target="_blank" aria-label="Facebook Page" rel="noopener noreferrer"
-        title="Facebook Page">
-
-        <nz-icon nzSize="128px" style="font-size: 64px; color: blue;" nzType="facebook" nzTheme="fill" />
+        title="Visit Facebook Page">
+        <nz-icon nzType="facebook" nzTheme="fill" class="icon-facebook"></nz-icon>
       </a>
-      <!-- <a href="{{ youtube }}" target="_blank" aria-label="Facebook Page" rel="noopener noreferrer" title="YouTube Link">
-
-        <nz-icon style="font-size: 64px; color: red;" nzType="youtube" nzTheme="fill" />
-      </a> -->
-
-      <span>v1.0.0</span>
-
+      <!-- <span class="version">v1.0.t1</span> -->
     </div>
   </div>
 </header>

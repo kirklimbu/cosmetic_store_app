@@ -4,7 +4,7 @@
   display: flex;
   flex-direction: column;
   font-size: 13px;
-  color: $tertiary-color;
+  background-color: lighten($primary-color, 15%);
   border-bottom: 1px solid white;
 
   .section {
@@ -16,55 +16,111 @@
 
     .content {
       display: flex;
-      align-items: center;
+      align-items: center; // ✅ ensures vertical centering
+      justify-content: center;
       gap: 6px;
 
-      nz-icon {
-        // margin-right: 6px;
-        font-size: 24px;
-      }
-
       a {
-        color: $tertiary-color;
+        display: flex; // ✅ ensures icon centers inside link
+        align-items: center;
+        justify-content: center;
         text-decoration: none;
+        color: $white;
+        font-weight: 500;
+        transition: transform 0.2s ease-in-out;
 
         &:hover {
-          color: darken($tertiary-color, 15%);
+          transform: scale(1.1);
+          color: darken($primary-color, 5%);
         }
+      }
+
+      .version {
+        color: $white;
+        font-size: 12px;
+        opacity: 0.85;
+      }
+
+      nz-icon {
+        display: flex; // ✅ helps perfect vertical centering
+        align-items: center;
+        justify-content: center;
+        transition: transform 0.2s ease-in-out;
+        line-height: 1;
+      }
+
+      .icon-phone {
+        color: $white;
+      }
+
+      .icon-facebook {
+        color: #1877f2;
       }
     }
   }
 
-  .section-left {
-    .content {
-      justify-content: flex-start;
-    }
+  .section-left .content {
+    justify-content: flex-start;
   }
 
-  .section-right {
-    .content {
-      justify-content: flex-start;
-    }
+  .section-right .content {
+    justify-content: flex-end;
+    align-items: center; // ✅ ensures vertical center in section
   }
 
-
-
-  // Remove top border for the first section
   .section:first-child {
     border-top: none;
   }
 
-  // Tablet & Desktop (≥768px)
+  /* -------------------------------
+     📱 Mobile View (≤767px)
+  --------------------------------*/
+  @media (max-width: 767px) {
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    padding: 4px 10px;
+
+    .section {
+      flex: none;
+      border-top: none;
+      padding: 4px 0;
+
+      &.section-center {
+        display: none !important;
+      }
+
+      a,
+      .version {
+        font-size: 12px;
+      }
+
+      nz-icon {
+        font-size: 16px; // ✅ improved readability on mobile
+      }
+    }
+
+    .section-left .content {
+      gap: 4px;
+    }
+
+    .section-right .content {
+      gap: 8px;
+    }
+  }
+
+  /* -------------------------------
+     💻 Tablet & Desktop (≥768px)
+  --------------------------------*/
   @media (min-width: 768px) {
     flex-direction: row;
     height: 50px;
 
     .section {
-      background-color: lighten($color: $tertiary-color, $amount: 35%);
+      background-color: lighten($primary-color, 25%);
       border-top: none;
       border-left: 1px solid white;
       height: 100%;
-
 
       &:first-child {
         border-left: none;
@@ -77,68 +133,28 @@
         .content {
           justify-content: flex-end;
           gap: 10px;
-
         }
       }
 
       &.section-center {
         flex: 3;
-        justify-content: space-evenly;
+        justify-content: center;
       }
 
       &.section-right {
         flex: 1;
-        display: flex;
-        align-items: center;
         justify-content: flex-start;
-        /* Vertically centers the icons */
-        gap: 10px;
 
         .content {
           justify-content: flex-start;
-          gap: 10px; // Ensure consistent spacing between the links
+          align-items: center; // ✅ centers facebook icon perfectly
+          gap: 10px;
         }
       }
 
+      nz-icon {
+        font-size: 20px; // ✅ larger icons for desktop
+      }
     }
   }
 }
-
-.section-center {
-  display: flex;
-  flex: 3;
-  justify-content: center;
-  padding: 0.5rem 1rem;
-}
-
-.content {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  max-width: 1200px;
-}
-
-.left-content,
-.right-content {
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-}
-
-a {
-  text-decoration: none;
-  color: #4B2E1E;
-  font-weight: 500;
-
-  &:hover {
-    color: #0077cc;
-  }
-}
-
-.social-icon-size {
-  font-size: 164px !important; // Adjust this value
-  height: 64px !important; // Match the height to prevent layout shifts
-  line-height: 1 !important; // Ensure proper vertical alignment
-}
-

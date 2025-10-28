@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, DestroyRef, OnInit, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { Meta, Title } from '@angular/platform-browser';
+import { SeoService } from '@logger/seo.service';
 import { ICategory } from 'src/app/domains/home/data/model/home.model';
 import { ICompany } from '../company/data/model/company.model';
 import { ProductSlider } from '../shared/ui-common/product-slider/product-slider';
@@ -9,9 +9,9 @@ import { deviceIdSignal } from '../shared/util-common/generateDeviceId';
 import { CategoryCard } from './category-card/category-card';
 import { IBannerDto, IProduct } from './data/model/home.model';
 import { HomeBrandComponent } from './home-brand/home-brand.component';
-import { Homeproduct } from './home-product/home-product';
 import { HomeService } from './home.service';
 import { SliderComponent } from './slider/slider.component';
+import { Homeproduct } from './home-product/home-product';
 
 @Component({
   selector: 'app-home',
@@ -22,10 +22,11 @@ import { SliderComponent } from './slider/slider.component';
     CommonModule,
     HomeBrandComponent,
     CategoryCard,
-    Homeproduct,
-    SliderComponent,
     ProductSlider,
+    SliderComponent,
+    Homeproduct,
   ],
+
   providers: [],
 })
 export class HomeComponent implements OnInit {
@@ -56,10 +57,7 @@ export class HomeComponent implements OnInit {
   title8 = signal<string>('');
 
   private readonly unsubscribe$ = inject(DestroyRef);
-
-  private readonly titleService = inject(Title);
-  private readonly metaService = inject(Meta);
-
+  private readonly seoService = inject(SeoService);
   private readonly homeService = inject(HomeService);
 
   ngOnInit(): void {
@@ -100,6 +98,14 @@ export class HomeComponent implements OnInit {
         this.title8.set(res.categoryList[7].name);
         this.isLoading.set(false);
         console.log('title', this.title1());
+        this.updateSeo(res.stockList, 'Home');
       });
+  }
+
+  updateSeo(products: IProduct[], context: any) {
+    const titles = products.map((p) => p.name).filter((title) => !!title);
+    // console.log(titles, 'seo titles', context);
+
+    this.seoService.updateSeoFromProducts(titles, context);
   }
 }

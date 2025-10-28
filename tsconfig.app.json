@@ -2,9 +2,12 @@
   "extends": "./tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist/out-tsc",
-    "types": []
+    "types": ["node"]
   },
-  "include": ["src/**/*.ts", "src/app/domains/shared/util-common/generateDeviceIdts"],
+  "include": [
+    "src/**/*.ts",
+    "src/app/domains/shared/util-common/generateDeviceIdts"
+  ],
   "exclude": [
     "jest.config.ts",
     "src/test-setup.ts",

@@ -24,7 +24,7 @@ import { UserDetailsService } from 'src/app/domains/shared/util-common/userDetai
 })
 export class HeaderTopComponent implements OnInit {
   url = '/assets/data/pages/company_info.json';
-  phoneNo = GlobalConstants.HEAD_OFFICE_PHONE;
+  phoneNo = GlobalConstants.PHONE;
   email = GlobalConstants.appEmail;
   facebookUrl = GlobalConstants.facebook;
   isLoggedIn = false;

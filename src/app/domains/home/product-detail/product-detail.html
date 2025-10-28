@@ -3,7 +3,8 @@
         <!-- LEFT: IMAGE SECTION -->
         <div class="pd-image-col" role="region" aria-label="Product images">
             <div class="main-image">
-                <img nz-image [nzSrc]="product().path" nzWidth="100%" nzHeight="100%" nzPreview alt="product().name" />
+                <img nz-image [appLazyImg]="product().path" nzWidth="100%" nzHeight="100%" nzPreview
+                    alt="product().name" />
 
                 <ng-template #placeholderTpl>
                     <div class="image-placeholder" aria-hidden="true">
@@ -53,7 +54,8 @@
                     <nz-input-number [ngModel]="qty()" min="1" max="product()?.remaining || 9999"
                         (ngModelChange)="onQtyChange($event)" aria-label="Quantity"></nz-input-number>
 
-                    <button class="add-to-cart-btn " nz-button nzType="primary" [disabled]="isOutOfStock()" (click)="addToCart()">
+                    <button class="add-to-cart-btn " nz-button nzType="primary" [disabled]="isOutOfStock()"
+                        (click)="addToCart()">
                         Add to cart
                     </button>
 
@@ -63,7 +65,7 @@
                 </div>
 
                 <div class="shipping-note" *ngIf="!isOutOfStock()">
-                    <small>Free delivery within Damak for orders above Rs. 1000 • COD available</small>
+                    <span>Free delivery within Damak for orders above Rs. 1000 • COD available</span>
                 </div>
 
                 <div class="product-meta">

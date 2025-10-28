@@ -23,13 +23,24 @@ import { appRoutes } from './app.routes';
 import { errorInterceptor } from './domains/shared/util-auth/guards/interceptors/error-interceptor.interceptor';
 
 import { httpTokenInterceptor } from './domains/shared/util-auth/guards/interceptors/http-token-interceptor';
+import {
+  provideClientHydration,
+  withEventReplay,
+} from '@angular/platform-browser';
+import { isPlatformBrowser } from '@angular/common';
+
 const icons: IconDefinition[] = Object.values(AllIcons);
 
 const ngZorroConfig: NzConfig = {
   message: { nzTop: 120 },
   notification: { nzTop: 160, nzDuration: 10_000 },
 };
-export function tokenGetter(): string | null {
+
+
+export function tokenGetter(platformId: object): string | null {
+    if (!isPlatformBrowser(platformId)) return null;
+
+  
   const raw = localStorage.getItem('auth');
   if (!raw) return null;
 
@@ -47,6 +58,7 @@ export function tokenGetter(): string | null {
 registerLocaleData('en');
 export const appConfig: ApplicationConfig = {
   providers: [
+    provideClientHydration(withEventReplay()),
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(appRoutes),
     provideHttpClient(withInterceptors([])),

@@ -1,10 +1,13 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
   Component,
   effect,
   HostListener,
+  Inject,
   inject,
   input,
+  OnInit,
+  PLATFORM_ID,
   signal,
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -46,7 +49,7 @@ import { MessageService } from '@logger/message.service';
   templateUrl: './product-page.html',
   styleUrl: './product-page.scss',
 })
-export class ProductPage {
+export class ProductPage implements OnInit {
   // props
   data = input<IProduct>();
   gridCols = 2; // Default for mobile
@@ -64,6 +67,8 @@ export class ProductPage {
   private readonly authState = inject(AuthState);
   authenticated = this.authState.isAuthenticated;
   productState = inject(SearchService);
+  @Inject(PLATFORM_ID) private platformId: object;
+  private isBrowser = false;
 
   constructor() {
     effect(() => {
@@ -82,14 +87,19 @@ export class ProductPage {
   }
 
   ngOnInit(): void {
-    this.updateGridCols();
+    this.isBrowser = isPlatformBrowser(this.platformId); // Detect browser
+    if (this.isBrowser) {
+      this.updateGridCols();
+    }
 
     // console.log('products', this.data());
   }
 
   @HostListener('window:resize')
   onResize(): void {
-    this.updateGridCols();
+    if (this.isBrowser) {
+      this.updateGridCols();
+    }
   }
 
   private updateGridCols(): void {

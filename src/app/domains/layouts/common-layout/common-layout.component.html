@@ -1,7 +1,7 @@
 <nz-layout class="layout-container">
     <!-- Main layout -->
     <nz-layout>
-        <!-- <app-header-top /> -->
+        <app-header-top />
         <!-- Header -->
         <lib-header class="app-header" (search)="onSearch($event)" />
 
@@ -12,6 +12,9 @@
                 <router-outlet></router-outlet>
             </div>
         </nz-content>
+        <app-scroll-to-top />
+        <!-- <app-fb-messenger /> -->
+        <app-whatsapp-messenger />
         <!-- Footer -->
         <app-footer class="app-footer" />
 
