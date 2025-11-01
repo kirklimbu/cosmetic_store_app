@@ -3,7 +3,7 @@
 // Title Section
 .categories-section {
     width: 100%;
-    padding: 1rem;
+    padding: 1rem 0rem;
 }
 
 .section-header {
@@ -194,6 +194,9 @@
     border-radius: 12px;
     cursor: pointer;
     transition: all 0.2s ease-in-out;
+    background: linear-gradient(135deg, #371f2a, #333);
+    // background: #333;
+
 
     &:hover {
         background: lighten($color: pink, $amount: 10%);

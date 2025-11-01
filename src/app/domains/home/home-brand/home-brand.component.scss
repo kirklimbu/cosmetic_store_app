@@ -2,7 +2,7 @@
 
 // Mobile-first responsive design for category carousel
 .brand-section {
-  padding: 4rem 1rem 0 1rem;
+  padding: 1rem 0rem;
 }
 
 .ant-page-header {
@@ -11,7 +11,7 @@
 
 .category-container {
   margin: 0.5rem 0;
-  background: lighten($color: pink, $amount: 10%);
+  background: linear-gradient(135deg, #e84393, #fd79a8);
   padding: 0.5rem 0;
 }
 
@@ -274,4 +274,13 @@ nz-carousel {
       transition: none;
     }
   }
+}
+
+a {
+  color: lighten($primary-color, 15%);
+
+  &:hover {
+    color: $primary-color;
+  }
+
 }

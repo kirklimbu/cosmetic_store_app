@@ -52,17 +52,19 @@ export class HomeBrandComponent implements OnInit, OnChanges {
   @Input() data: any[] = []; // Fixed the @Input decorator
 
   private cd = inject(ChangeDetectorRef);
-  @Inject(PLATFORM_ID) private platformId: object;
+  private platformId = inject(PLATFORM_ID);
+
   private isBrowser = false;
+  constructor() {
+    this.isBrowser = isPlatformBrowser(this.platformId);
+  }
 
   ngOnInit(): void {
     // this.isBrowser = isPlatformBrowser(this.platformId); // Detect browser
 
-    this.chunkCategories();
     if (this.isBrowser) {
-      console.log('brands', this.chunkCategories());
+      this.chunkCategories();
     }
-    this.cd.detectChanges();
   }
 
   @HostListener('window:resize')
@@ -117,7 +119,7 @@ export class HomeBrandComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(): void {
-    if (this.isBrowser) {
+    if (this.isBrowser && this.data?.length) {
       this.chunkCategories();
     }
   }

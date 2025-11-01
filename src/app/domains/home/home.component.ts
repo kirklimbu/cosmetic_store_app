@@ -11,7 +11,6 @@ import { IBannerDto, IProduct } from './data/model/home.model';
 import { HomeBrandComponent } from './home-brand/home-brand.component';
 import { HomeService } from './home.service';
 import { SliderComponent } from './slider/slider.component';
-import { Homeproduct } from './home-product/home-product';
 
 @Component({
   selector: 'app-home',
@@ -24,7 +23,6 @@ import { Homeproduct } from './home-product/home-product';
     CategoryCard,
     ProductSlider,
     SliderComponent,
-    Homeproduct,
   ],
 
   providers: [],
@@ -77,6 +75,7 @@ export class HomeComponent implements OnInit {
         this.bannerList.set(res.bannerList);
         this.companyList.set(res.companyList);
         this.categoryList.set(res.categoryList);
+
         this.productList.set(res.stockList);
         this.category1.set(res.categoryList[0].stockList);
         this.category2.set(res.categoryList[1].stockList);
@@ -97,15 +96,12 @@ export class HomeComponent implements OnInit {
         this.title7.set(res.categoryList[6].name);
         this.title8.set(res.categoryList[7].name);
         this.isLoading.set(false);
-        console.log('title', this.title1());
         this.updateSeo(res.stockList, 'Home');
       });
   }
 
   updateSeo(products: IProduct[], context: any) {
     const titles = products.map((p) => p.name).filter((title) => !!title);
-    // console.log(titles, 'seo titles', context);
-
     this.seoService.updateSeoFromProducts(titles, context);
   }
 }

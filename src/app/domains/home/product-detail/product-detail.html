@@ -55,7 +55,7 @@
                         (ngModelChange)="onQtyChange($event)" aria-label="Quantity"></nz-input-number>
 
                     <button class="add-to-cart-btn " nz-button nzType="primary" [disabled]="isOutOfStock()"
-                        (click)="addToCart()">
+                        (click)="addToCart(product())">
                         Add to cart
                     </button>
 

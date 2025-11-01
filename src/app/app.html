@@ -1,1 +1,5 @@
+@if(authstate.hydrated()){
 <router-outlet></router-outlet>
+} @else {
+<nz-spin nzSimple></nz-spin><!-- <div class="loading-screen">Loading...</div> -->
+}

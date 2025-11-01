@@ -1,5 +1,5 @@
 import { HttpClient } from '@angular/common/http';
-import { Injectable, inject, signal } from '@angular/core';
+import { DestroyRef, Injectable, inject, signal } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { ICartCountDto } from './../model/cart.model';
 // project
@@ -14,6 +14,7 @@ import {
   ICheckOutFormDtoWrapper,
 } from '../model/cart.model';
 import { AuthState } from 'src/app/domains/auth/login/state/login.state';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Injectable({
   providedIn: 'root',
@@ -27,10 +28,12 @@ export class CartService {
 
   private readonly http = inject(HttpClient);
   private readonly authstate = inject(AuthState);
+  private readonly destroyRef$ = inject(DestroyRef);
 
   constructor() {
     // Fetch cart count at startup
     const authenticated = this.authstate.isAuthenticated();
+
     if (authenticated) this.refreshCartCount();
   }
 
@@ -52,8 +55,6 @@ export class CartService {
     return this.http.post<ICart>(`${this.apiUrl}cart/save`, data);
   }
   saveCheckout(data: any): Observable<ICustomResponse> {
-    console.log('checout data', data);
-
     return this.http.post<ICustomResponse>(
       `${this.apiUrl}order/checkout/save`,
       {
@@ -80,7 +81,9 @@ export class CartService {
   }
 
   refreshCartCount() {
-    this.fetchCartCount().subscribe();
+    this.fetchCartCount()
+      .pipe(takeUntilDestroyed(this.destroyRef$))
+      .subscribe();
   }
   updateCartAfterCheckout(): void {
     this.refreshCartCount();

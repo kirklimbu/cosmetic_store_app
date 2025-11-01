@@ -8,13 +8,12 @@ import { environment } from '../../../../../../environments/environment';
 export const DISABLE_INTERCEPTORS = new HttpContextToken<boolean>(() => false);
 
 export const httpTokenInterceptor: HttpInterceptorFn = (req, next) => {
-  // console.log('calling token interceptor');
 
   // const store = inject(Store);
-  const authState = inject(AuthState);
-
   // const token = store.selectSnapshot(AuthState.token);
-  const token = authState.token();
+  const authState = inject(AuthState);
+  const token = authState.token(); // store.selectSnapshot(AuthState.token);
+  
 
   const headers: Record<string, string> = {
     UserAgent: environment.UserAgent,

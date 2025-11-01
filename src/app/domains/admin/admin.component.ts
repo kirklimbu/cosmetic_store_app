@@ -55,7 +55,6 @@ export class AdminComponent implements OnInit {
 
   ngOnInit(): void {
     if (this.authstate.isAdmin()) this.fetchCurrentDayend();
-    console.log('oniinti');
   }
 
   onToggleSideNav(data: SideNavToggle): void {
@@ -91,8 +90,6 @@ export class AdminComponent implements OnInit {
       .getCurrentDayend()
       .pipe(takeUntilDestroyed(this.destroyRef$))
       .subscribe((res) => {
-        console.log('current dayend', res);
-
         this.currentDayend = res;
         // this.messageService.createMessage('success', res.message);
       });

@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   computed,
+  effect,
   inject,
   input,
   output,
@@ -23,12 +24,13 @@ import { NzRateModule } from 'ng-zorro-antd/rate';
 import { NzStatisticModule } from 'ng-zorro-antd/statistic';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzTagModule } from 'ng-zorro-antd/tag';
-import { map, Subject } from 'rxjs';
+import { debounceTime, map, Subject } from 'rxjs';
 import { AuthState } from '../../auth/login/state/login.state';
 import { CartService } from '../../cart/data/services/cart.services';
 import { SearchService } from '../../search-result-page/data/service/search.service';
 import { LazyImgDirective } from '../../shared/directives/lazyImage/lazyImage.directive';
 import { MessageService } from '@logger/message.service';
+import { IProduct } from '../data/model/home.model';
 @Component({
   selector: 'app-product-detail',
   imports: [
@@ -126,15 +128,15 @@ export class ProductDetail {
     //   const products = this.data();
     //   this.productState.setData(products);
     // });
-    // this.quantityChanges$
-    //   .pipe(debounceTime(400))
-    //   .subscribe(({ productId, value }) => {
-    //     // const item = this.data.find((p) => p.stockMasterId === productId);
-    //     const item = this.productState
-    //       .filteredProducts()
-    //       .find((p) => p.stockMasterId === productId);
-    //     if (item) this.updateStock(item, value);
-    //   });
+    this.quantityChanges$
+      .pipe(debounceTime(400))
+      .subscribe(({ productId, value }) => {
+        // const item = this.data.find((p) => p.stockMasterId === productId);
+        const item = this.productState
+          .filteredProducts()
+          .find((p) => p.stockMasterId === productId);
+        if (item) this.updateStock(item, value);
+      });
   }
 
   // updateQuantity(value: any) {
@@ -210,7 +212,8 @@ export class ProductDetail {
     this.emptyCart.emit();
   }
 
-  addToCart(): void {
+  addToCart(item: IProduct): void {
+    console.log('item to add', item);
     if (!this.authenticated()) {
       this.messageService.createMessage('info', 'Login to add items to cart');
       this.router.navigate(['/auth/login']);
@@ -221,9 +224,31 @@ export class ProductDetail {
       return;
     }
 
-    this.message.success(
-      `Added ${this.quantity()} ${this.product().name} to cart`
-    );
+    const payload = {
+      stockMasterId: item.stockMasterId,
+      unitId: item.unitId,
+      qty: this.qty(),
+    };
+    console.log('payload', payload);
+
+    this.cartService.saveCart(payload).subscribe((res) => {
+      const updatedProduct = res;
+      this.messageService.createMessage(
+        'success',
+        `${item.name} added to your cart successfully`
+      );
+      // this.data = this.data.map((product) =>
+      const updatedDate = this.productState
+        .filteredProducts()
+        .map((product) =>
+          product.stockMasterId === updatedProduct.stockMasterId
+            ? { ...product, ...updatedProduct }
+            : product
+        );
+      this.productState.setData(updatedDate);
+
+      this.cartService.refreshCartCount();
+    });
     // Implement your cart logic here
   }
 
@@ -261,7 +286,9 @@ export class ProductDetail {
   onSelectImage(idx: number) {
     // this.selectedImageIndex.set(idx);
   }
-  onQtyChange(value: number | null) {
+  onQtyChange(value: number | 1) {
+    console.log('qty', value);
+
     this.qty.set(value && value > 0 ? value : 1);
   }
 }

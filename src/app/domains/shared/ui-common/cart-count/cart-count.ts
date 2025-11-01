@@ -23,8 +23,10 @@ export class CartCount {
     this.router.navigate(['/home/cart']);
   }
 
-   cartCount() {
+  cartCount() {
     const authenticated = this.authstate.isAuthenticated();
+    console.log('cart count ', authenticated);
+
     if (authenticated) {
       return this.cartService.cartCount;
     }

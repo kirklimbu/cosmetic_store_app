@@ -2,7 +2,7 @@
 
 // Main container
 .page-container {
-    padding: 1rem;
+    padding: 1rem 0rem;
     max-width: 1400px;
     margin: 0 auto;
 }
@@ -94,7 +94,7 @@
 // Tablet and above
 @media (min-width: 768px) {
     .page-container {
-        padding: 1.5rem;
+        padding: 1rem 0rem;
     }
 
     .slider-container {
@@ -108,7 +108,7 @@
 
 @media (min-width: 1024px) {
     .page-container {
-        padding: 2rem 1rem;
+        padding: 1rem 0rem;
     }
 
     .product-slider {

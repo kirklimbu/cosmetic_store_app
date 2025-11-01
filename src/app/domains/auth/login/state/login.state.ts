@@ -16,8 +16,11 @@ import { isPlatformBrowser } from '@angular/common';
   providedIn: 'root',
 })
 export class AuthState {
+  // props
+  hydrated = signal(false);
+
   private readonly authService = inject(AuthService);
-  @Inject(PLATFORM_ID) private platformId: object;
+  private platformId = inject(PLATFORM_ID);
 
   private state = signal<AuthStateModel>({
     user: null,
@@ -45,7 +48,7 @@ export class AuthState {
   isAdmin = computed(() => this.userRole() === Role.ADMIN);
 
   constructor() {
-    this.initializeFromStorage();
+  queueMicrotask(() => this.initializeFromStorage());
   }
 
   hasAnyRole(requiredRoles: Role[]): boolean {
@@ -61,20 +64,30 @@ export class AuthState {
   }
 
   private initializeFromStorage() {
-    if (isPlatformBrowser(this.platformId)) {
-      const savedAuth = localStorage.getItem('Auth');
-      if (savedAuth) {
-        try {
-          const authData = JSON.parse(savedAuth);
-          this.state.set({
-            user: authData.user,
-            token: authData.token,
-          });
-        } catch (error) {
-          this.clearAuth();
-        }
-      }
+    if (!isPlatformBrowser(this.platformId)) {
+      this.hydrated.set(true); // SSR or server mode
+      return;
     }
+    const savedAuth = localStorage.getItem('Auth');
+
+    if (!savedAuth) {
+      this.hydrated.set(true); // No auth, but hydration finished
+      return;
+    }
+
+    try {
+      const authData = JSON.parse(savedAuth);
+
+      const user = new UserModel(authData.user);
+
+      this.state.set({
+        user,
+        token: authData.token,
+      });
+    } catch {
+      this.clearAuth();
+    }
+    this.hydrated.set(true);
   }
 
   login(credentials: { username: string; password: string }) {
@@ -142,7 +155,7 @@ export class AuthState {
     this.saveToStorage({ user, token: authData.token });
   }
   private setLoading(loading: boolean) {
-    this.state.update((s) => ({ ...s, isLoading: loading }));
+    this.uiState.update((s) => ({ ...s, isLoading: loading }));
   }
 
   private clearAuth() {

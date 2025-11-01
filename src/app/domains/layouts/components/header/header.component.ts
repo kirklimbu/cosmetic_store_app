@@ -2,6 +2,7 @@ import { CommonModule } from '@angular/common';
 import {
   Component,
   computed,
+  DestroyRef,
   inject,
   OnInit,
   output,
@@ -24,6 +25,7 @@ import { CartCount } from 'src/app/domains/shared/ui-common/cart-count/cart-coun
 import { SearchPage } from '../search-page/search-page';
 import { CartService } from './../../../cart/data/services/cart.services';
 import { NzImageModule } from 'ng-zorro-antd/image';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 // import { MessageService } from 'src/app/shared/util-logger/message.service';
 
 @Component({
@@ -93,6 +95,7 @@ export class HeaderComponent implements OnInit {
   logout = output<void>();
 
   private router = inject(Router);
+  private destroyRef$ = inject(DestroyRef);
   readonly authstate = inject(AuthState);
   readonly messageService = inject(MessageService);
   cartService = inject(CartService);
@@ -119,14 +122,17 @@ export class HeaderComponent implements OnInit {
   }
 
   onLogout(): void {
-    const userId = this.authstate.user()?.userId; // or however you store it
+    // const userId = this.authstate.user()?.userId; // or however you store it
 
-    this.authstate.logout().subscribe((res) => {
-      console.log('Logout successful', res);
-      this.messageService.createMessage('success', res.message);
-      // navigate to login page
-      this.router.navigate(['/login']);
-    });
+    this.authstate
+      .logout()
+      .pipe(takeUntilDestroyed(this.destroyRef$))
+      .subscribe((res) => {
+        console.log('Logout successful', res);
+        this.messageService.createMessage('success', res.message);
+        // navigate to login page
+        this.router.navigate(['/login']);
+      });
   }
   markAllAsRead() {
     this.notifications.update((notifications) =>

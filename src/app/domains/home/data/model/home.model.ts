@@ -63,6 +63,7 @@ export interface IProduct {
   name: string;
   remaining: number;
   unit: string;
+  unitId: number;
   path: string;
   description: string;
   hasActive: true;
