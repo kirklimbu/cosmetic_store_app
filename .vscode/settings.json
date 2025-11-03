@@ -1,3 +1,19 @@
 {
-  "nxConsole.generateAiAgentRules": true
+  "nxConsole.generateAiAgentRules": true,
+  "files.watcherExclude": {
+    "**/node_modules/**": true,
+    "**/dist/**": true,
+    "**/.git/**": true,
+    "**/.angular/**": true,
+    "**/tmp/**": true
+  },
+  "search.exclude": {
+    "**/node_modules/**": true,
+    "**/dist/**": true
+  },
+  "typescript.tsserver.maxTsServerMemory": 4096,
+  "files.useExperimentalFileWatcher": true,
+  "nx.executorRunner": "native",
+  "editor.largeFileOptimizations": true,
+  "typescript.disableAutomaticTypeAcquisition": true
 }

@@ -27,6 +27,7 @@ import { AuthState } from 'src/app/domains/auth/login/state/login.state';
 import { CartService } from 'src/app/domains/cart/data/services/cart.services';
 import { SearchService } from 'src/app/domains/search-result-page/data/service/search.service';
 import { MessageService } from '@logger/message.service';
+import { GlobalConstants } from '../../global-constants';
 
 @Component({
   selector: 'app-product-page',
@@ -51,6 +52,7 @@ import { MessageService } from '@logger/message.service';
 })
 export class ProductPage implements OnInit {
   // props
+  fallback = GlobalConstants.fallbackImg;
   data = input<IProduct>();
   gridCols = 2; // Default for mobile
 

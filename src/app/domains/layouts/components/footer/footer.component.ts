@@ -10,5 +10,5 @@ import { Component, signal } from '@angular/core';
 })
 export class FooterComponent {
   currentYear = signal(new Date().getFullYear());
-  appVersion = signal('1.0.t2');
+  appVersion = signal('1.1.t1');
 }

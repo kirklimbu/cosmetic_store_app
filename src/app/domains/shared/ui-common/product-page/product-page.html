@@ -8,8 +8,7 @@
             <!-- <div class="badge discount">15% OFF</div> -->
         </div>
 
-        <img [appLazyImg]="data().path" [alt]="data().name"
-            onerror="this.src='/assets/images/placeholder-product.jpg'" />
+        <img [appLazyImg]="data().path" [alt]="data().name" [title]="data().name" onerror="" />
     </div>
 
     <!-- Product Information - Clean Layout -->

@@ -21,7 +21,7 @@
 
         <!-- 💰 Summary Section -->
         <div nz-col [nzXs]="24" [nzMd]="8" class="cart-summary-wrapper">
-            @if ((data$ | async)?.summary; as summary) {
+            @if ((data$ | async);as data) {
             <section class="cart-summary">
                 <nz-card class="summary-card">
                     <h3 class="summary-title">Transaction Summary</h3>
@@ -30,21 +30,21 @@
                         <!-- Total MRP -->
                         <div class="summary-item">
                             <span class="label">Total MRP</span>
-                            <span class="value">Rs. {{ summary.totalMrpAmt }}</span>
+                            <span class="value">Rs. {{ data.summary.totalMrpAmt }}</span>
                         </div>
 
                         <!-- Savings -->
                         <div class="summary-item">
                             <span class="label">You Saved</span>
-                            <span class="value saving" [ngClass]="{ negative: summary.totalSaving < 0 }">
-                                Rs. {{ summary.totalSaving }}
+                            <span class="value saving" [ngClass]="{ negative: data.summary.totalSaving < 0 }">
+                                Rs. {{ data.summary.totalSaving }}
                             </span>
                         </div>
 
                         <!-- Net Amount -->
                         <div class="summary-item">
                             <span class="label">Total Amount</span>
-                            <span class="value net">Rs. {{ summary.totalNetAmt }}</span>
+                            <span class="value net">Rs. {{ data.summary.totalNetAmt }}</span>
                         </div>
                     </div>
 
@@ -65,7 +65,7 @@
             </div>
             -->
 
-                    <button nz-button nzBlock class="checkout-btn" (click)="onSave()">
+                    <button nz-button nzBlock class="checkout-btn" (click)="onSave(data.form)">
                         Place Order
                     </button>
                 </nz-card>

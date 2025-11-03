@@ -45,6 +45,12 @@ export class AuthService {
   //   this.currentUserSignal.set(user);
   // }
 
+  getRegistrationFormValues(id: number): Observable<IUser> {
+    return this.http.get<IUser>(`${this.apiUrl}user/registration/form`, {
+      params: { userId: id },
+    });
+  }
+
   // ✅ Restore auth from storage before app starts
   private restoreSession() {
     if (!isPlatformBrowser(this.platformId)) {

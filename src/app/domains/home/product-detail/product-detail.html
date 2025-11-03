@@ -51,7 +51,7 @@
                 </div>
 
                 <div class="actions">
-                    <nz-input-number [ngModel]="qty()" min="1" max="product()?.remaining || 9999"
+                    <nz-input-number [ngModel]="qty()" [nzMin]="1" [nzMax]="product()?.remaining || 9999"
                         (ngModelChange)="onQtyChange($event)" aria-label="Quantity"></nz-input-number>
 
                     <button class="add-to-cart-btn " nz-button nzType="primary" [disabled]="isOutOfStock()"

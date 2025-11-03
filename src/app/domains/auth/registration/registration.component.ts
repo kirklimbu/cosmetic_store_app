@@ -1,9 +1,17 @@
 import { CommonModule } from '@angular/common';
-import { Component, DestroyRef, inject, TemplateRef } from '@angular/core';
+import {
+  Component,
+  computed,
+  DestroyRef,
+  inject,
+  OnInit,
+  TemplateRef,
+} from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
   FormGroup,
+  FormsModule,
   ReactiveFormsModule,
   Validators,
 } from '@angular/forms';
@@ -13,7 +21,7 @@ import { AuthService } from '../../shared/util-auth/services/auth-http/auth.serv
 import { FormSubmitButtonsComponent } from '../../shared/ui-common/form-submit-buttons/form-submit-buttons.component';
 import { ConfirmedValidator } from '../../shared/util-logger/confirm-password.validator';
 // import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { UrlService } from '../../shared/util-logger/url.service';
 // import { MessageService } from 'src/app/shared/util-logger/message.service';
 import { NzButtonModule } from 'ng-zorro-antd/button';
@@ -30,6 +38,7 @@ import { ICustomResponse } from '../../shared/models/CustomResponse.model';
     CommonModule,
     RouterModule,
     ReactiveFormsModule,
+    FormsModule,
     FormSubmitButtonsComponent,
     NzIconModule,
     NzFormModule,
@@ -42,7 +51,7 @@ import { ICustomResponse } from '../../shared/models/CustomResponse.model';
   styleUrls: ['./registration.component.scss'],
   providers: [],
 })
-export class RegistrationComponent {
+export class RegistrationComponent implements OnInit {
   form!: FormGroup;
   hasError!: boolean;
   showPassword = false;
@@ -63,8 +72,17 @@ export class RegistrationComponent {
   public urlService = inject(UrlService);
   // public messageService = inject(MessageService);
 
-  ngOnInit(): void {
-    this.initForm();
+  queryParamMapSignal = toSignal(this.route.queryParamMap, {
+    initialValue: this.route.snapshot.queryParamMap,
+  });
+
+  idsSignal = computed(() => ({
+    id: Number(this.queryParamMapSignal()?.get('id') ?? 0),
+  }));
+
+  public ngOnInit(): void {
+    this.buildForm();
+    this.fetchDefaultFormValues();
   }
 
   // convenience getter for easy access to form fields
@@ -72,22 +90,35 @@ export class RegistrationComponent {
     return this.form.controls;
   }
 
-  initForm(): FormGroup {
+  buildForm(): FormGroup {
     return (this.form = this.fb.group(
       {
-        mobile: ['', [Validators.required]],
+        userId: [],
         name: ['', [Validators.required]],
+        mobile: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
-        addressOne: ['', [Validators.required]],
-        addressTwo: [''],
-        passWord: ['', [Validators.required]],
+        address1: ['', [Validators.required]],
+        address2: [''],
+        password: ['', [Validators.required]],
         cPassword: ['', [Validators.required]],
-        // agree: [false, [Validators.required]],
+        agree: [false, [Validators.required]],
       },
       {
-        validator: ConfirmedValidator('passWord', 'cPassword'),
+        validators: ConfirmedValidator('password', 'cPassword'),
       }
     ));
+  }
+
+  fetchDefaultFormValues() {
+    this.authService
+      .getRegistrationFormValues(this.idsSignal().id)
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe((_res) => {
+        console.log('res form', _res);
+
+        this.form.patchValue(_res);
+        // this.avatarUrl = _res.path;
+      });
   }
 
   onTogglePassword() {

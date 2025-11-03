@@ -5,7 +5,7 @@ import { isPlatformBrowser } from '@angular/common';
 import { Inject } from '@angular/core';
 
 // --- SSR-safe signal ---
-export const deviceIdSignal = signal<string>('ssr-device-id');
+export const deviceIdSignal = signal<string>('');
 
 @Injectable({ providedIn: 'root' })
 export class DeviceService {
