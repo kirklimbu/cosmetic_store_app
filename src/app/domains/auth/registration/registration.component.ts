@@ -31,6 +31,7 @@ import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
 import { ICustomResponse } from '../../shared/models/CustomResponse.model';
+import { MessageService } from '@logger/message.service';
 
 @Component({
   selector: 'app-registration',
@@ -70,7 +71,7 @@ export class RegistrationComponent implements OnInit {
   private router = inject(Router);
   private route = inject(ActivatedRoute);
   public urlService = inject(UrlService);
-  // public messageService = inject(MessageService);
+  public messageService = inject(MessageService);
 
   queryParamMapSignal = toSignal(this.route.queryParamMap, {
     initialValue: this.route.snapshot.queryParamMap,
@@ -89,19 +90,18 @@ export class RegistrationComponent implements OnInit {
   get f() {
     return this.form.controls;
   }
-
   buildForm(): FormGroup {
     return (this.form = this.fb.group(
       {
         userId: [],
-        name: ['', [Validators.required]],
-        mobile: ['', [Validators.required]],
-        email: ['', [Validators.required, Validators.email]],
-        address1: ['', [Validators.required]],
+        name: [''],
+        mobile: [''],
+        email: [''],
+        address1: [''],
         address2: [''],
-        password: ['', [Validators.required]],
-        cPassword: ['', [Validators.required]],
-        agree: [false, [Validators.required]],
+        password: [''],
+        cPassword: [''],
+        agree: [false],
       },
       {
         validators: ConfirmedValidator('password', 'cPassword'),
@@ -137,8 +137,7 @@ export class RegistrationComponent implements OnInit {
       .subscribe((user: ICustomResponse) => {
         console.log('user', user);
         // this.isLoading = false;
-
-        // this.messageService.showSuccessMessage(user.message)
+        this.messageService.createMessage('success', user.message);
         this.router.navigate(['/auth/login']);
       });
   }
