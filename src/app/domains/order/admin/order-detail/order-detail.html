@@ -39,6 +39,7 @@
             [nzScroll]="{ x: '600px' }">
             <thead>
                 <tr>
+                    <th>Photo</th>
                     <th>Item</th>
                     <th>Qty</th>
                     <th>Mrp</th>
@@ -52,6 +53,8 @@
             <tbody>
                 @for (item of order?.form?.orderList; track item.orderMasterId) {
                 <tr>
+                    <td><img height="75" width="75" nz-image [nzSrc]="item.path" alt="{{ item.stockName }}"
+                            class="item-photo" /></td>
                     <td>{{ item.stockName }}</td>
                     <td>{{ item.qty }}</td>
                     <td>{{ item.mrp }}</td>

@@ -17,6 +17,7 @@ export interface IOrder {
   customerId: 0;
   orderById: 0;
   orderByName: string;
+  path: string;
 }
 
 export interface IOrderApproveFormDtoWrapper {

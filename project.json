@@ -9,11 +9,15 @@
   "targets": {
     "build": {
       "executor": "@angular/build:application",
-      "outputs": ["{options.outputPath}"],
+      "outputs": [
+        "{options.outputPath}"
+      ],
       "options": {
         "outputPath": "dist/kirana-store",
         "browser": "src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": [
+          "zone.js"
+        ],
         "tsConfig": "tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -48,12 +52,7 @@
           "fonts": true
         },
         "outputHashing": "all",
-        "aot": true,
-        "server": "src/main.server.ts",
-        "ssr": {
-          "entry": "src/server.ts"
-        },
-        "outputMode": "server"
+        "aot": true
       },
       "configurations": {
         "production": {
@@ -99,12 +98,17 @@
     "lint": {
       "executor": "@nx/eslint:lint",
       "options": {
-        "lintFilePatterns": ["src/**/*.ts", "src/**/*.html"]
+        "lintFilePatterns": [
+          "src/**/*.ts",
+          "src/**/*.html"
+        ]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
-      "outputs": ["{workspaceRoot}/coverage/{projectName}"],
+      "outputs": [
+        "{workspaceRoot}/coverage/{projectName}"
+      ],
       "options": {
         "jestConfig": "jest.config.app.ts",
         "tsConfig": "tsconfig.spec.json"

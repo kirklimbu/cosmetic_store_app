@@ -18,11 +18,14 @@ import { Observable, of } from 'rxjs';
 import { ICustomResponse } from 'src/app/domains/shared/models/CustomResponse.model';
 import { IOrderApproveFormDtoWrapper } from '../data/models/order.model';
 import { OrderService } from '../data/services/order.service';
+import { LazyImgDirective } from 'src/app/domains/shared/directives/lazyImage/lazyImage.directive';
+import { NzImageModule } from 'ng-zorro-antd/image';
 
 @Component({
   selector: 'app-order-detail',
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     NzCardModule,
     NzGridModule,
     NzTypographyModule,
@@ -33,7 +36,8 @@ import { OrderService } from '../data/services/order.service';
     NzIconModule,
     NzSelectModule,
     NzFormModule,
-    ReactiveFormsModule,
+    NzImageModule,
+    LazyImgDirective,
   ],
   templateUrl: './order-detail.html',
   styleUrl: './order-detail.scss',
